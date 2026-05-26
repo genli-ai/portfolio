@@ -1,0 +1,49 @@
+---
+const links = [
+  { label: "Email", value: "ligen.thu@gmail.com", href: "mailto:ligen.thu@gmail.com" },
+  { label: "GitHub", value: "reagan475614947", href: "https://github.com/reagan475614947" },
+  { label: "LinkedIn", value: "—", href: "#" },
+  { label: "X (Twitter)", value: "—", href: "#" },
+  { label: "YouTube", value: "— (English video coming soon)", href: "#" },
+];
+---
+<section id="contact" class="bg-[var(--color-paper-warm)]">
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+
+    <div class="max-w-3xl">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">Contact</div>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+        Let's talk.
+      </h2>
+      <p class="text-lg text-[var(--color-muted)] leading-relaxed mb-10">
+        Open to roles, advisory work, and research collaborations across MENA AI-for-finance.
+        If you're building AI tooling for sovereign capital, equity research, or policy analysis — I'd like to hear about it.
+      </p>
+
+      <dl class="space-y-3 font-mono text-sm">
+        {links.map(l => (
+          <div class="grid grid-cols-[120px_1fr] gap-4 py-3 border-t border-[var(--color-rule)]">
+            <dt class="text-[var(--color-muted)] uppercase tracking-wider text-xs pt-0.5">{l.label}</dt>
+            <dd>
+              {l.href === "#" ? (
+                <span class="text-[var(--color-muted)]">{l.value}</span>
+              ) : (
+                <a href={l.href} class="text-[var(--color-ink)] hover:text-[var(--color-accent)] transition" target="_blank" rel="noopener">{l.value}</a>
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+
+  <footer class="border-t border-[var(--color-rule)] mt-12">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[var(--color-muted)]">
+      <div>© 2026 Ligen. All rights reserved.</div>
+      <div class="flex gap-6">
+        <a href="https://github.com/reagan475614947/market-research-skills" class="hover:text-[var(--color-ink)] transition" target="_blank" rel="noopener">analyst-research source</a>
+        <span>Built with Astro + Tailwind · Claude Code</span>
+      </div>
+    </div>
+  </footer>
+</section>

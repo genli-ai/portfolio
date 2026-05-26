@@ -1,0 +1,68 @@
+---
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+---
+<section id="top" class="relative overflow-hidden">
+  <!-- Subtle grid background -->
+  <div
+    class="absolute inset-0 opacity-[0.04] pointer-events-none"
+    style="background-image: linear-gradient(var(--color-ink) 1px, transparent 1px), linear-gradient(90deg, var(--color-ink) 1px, transparent 1px); background-size: 40px 40px;"
+  />
+
+  <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-32">
+    <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-6">
+      AI for Finance · MENA
+    </div>
+
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] mb-8">
+      I build AI-augmented<br />
+      <span class="text-[var(--color-brand)]">investment research</span><br />
+      workflows.
+    </h1>
+
+    <p class="max-w-2xl text-lg md:text-xl text-[var(--color-muted)] leading-relaxed mb-10">
+      I am Ligen — an analyst working at the intersection of <strong class="text-[var(--color-ink)] font-medium">macro / policy research</strong>
+      and <strong class="text-[var(--color-ink)] font-medium">applied AI</strong>. I package investment-research methodology
+      as reusable Claude skills, then prove them with full-length deliverables. Below is one such proof — a 15,000-word
+      Saudi Vision 2030 deep-dive built end-to-end with my own open-source workflow.
+    </p>
+
+    <div class="flex flex-wrap gap-4 items-center">
+      <a
+        href="#case"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-ink)] text-[var(--color-paper)] rounded font-medium hover:bg-[var(--color-brand)] transition"
+      >
+        Read the case study
+        <span aria-hidden="true">→</span>
+      </a>
+      <a
+        href={asset('reports/saudi-vision-2030-report.pdf')}
+        target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--color-ink)] text-[var(--color-ink)] rounded font-medium hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition"
+      >
+        Download report (PDF, 7 MB)
+        <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+
+    <!-- Quick-fire stats -->
+    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-[var(--color-rule)] pt-10">
+      <div>
+        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">15k+</div>
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">Words written</div>
+      </div>
+      <div>
+        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">41</div>
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">Custom charts</div>
+      </div>
+      <div>
+        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">16</div>
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">KPIs benchmarked</div>
+      </div>
+      <div>
+        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">3</div>
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">Scenario models</div>
+      </div>
+    </div>
+  </div>
+</section>

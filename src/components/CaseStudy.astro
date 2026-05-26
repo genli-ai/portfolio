@@ -1,0 +1,97 @@
+---
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+const figures = [
+  { src: asset("figures/fig_1_1_gdp_rebasing_before_after.jpg"), title: "GDP rebasing: a 2018→2023 base shift swung non-oil share from 50% to 76%", section: "§1 Real Dependency" },
+  { src: asset("figures/fig_1_2_non_oil_share_5_sources.jpg"), title: "Five sources disagree on Saudi non-oil GDP share by 26 ppts — pick the right one, then triangulate", section: "§1 Real Dependency" },
+  { src: asset("figures/fig_3_1_breakeven_oil_4_sources.jpg"), title: "Four institutions on the breakeven oil price — IMF, MoF, IIF, market estimates side-by-side", section: "§3 Fiscal Cliff" },
+  { src: asset("figures/fig_3_4_three_scenarios.jpg"), title: "Three deficit scenarios — base, downside, upside — by cumulative SAR through 2030", section: "§3 Fiscal Cliff" },
+  { src: asset("figures/fig_4_1_pif_aum_history.jpg"), title: "PIF AUM trajectory 2015→2024 — the engine, the constraint, the political fact", section: "§4 PIF Engine" },
+  { src: asset("figures/fig_2_4_pif_aum_vs_non_oil_growth.jpg"), title: "PIF AUM growth vs non-oil GDP growth — the leverage ratio that frames every Vision 2030 number", section: "§2 PIF Mechanics" },
+  { src: asset("figures/fig_5_1_female_lfp.jpg"), title: "Female labor force participation — the standout structural success of Vision 2030", section: "§5 Social Reform" },
+  { src: asset("figures/fig_6_1_16_kpi_quadrant.jpg"), title: "16 headline KPIs — quadrant view by progress × Vision target", section: "§6 Scorecard" },
+  { src: asset("figures/fig_6_5_sensitivity_heatmap.jpg"), title: "Oil price × spending discipline — sensitivity heatmap for the 2030 fiscal endpoint", section: "§6 Scorecard" },
+];
+---
+<section id="case" class="bg-[var(--color-paper-warm)] border-y border-[var(--color-rule)]">
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+
+    <!-- Section header -->
+    <div class="max-w-3xl mb-16">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">Case Study · 01</div>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+        Saudi Vision 2030, halfway through<span class="text-[var(--color-accent)]">.</span>
+        <br />A real scorecard.
+      </h2>
+      <p class="text-lg text-[var(--color-muted)] leading-relaxed">
+        A 15,000-word, 41-figure investor-grade deep-dive published May 2026 — produced end-to-end with
+        my own AI-augmented research workflow. Every number traces to a primary source (IMF, GASTAT, SAMA, MoF,
+        PIF Annual Report, IIF). Three forward scenarios, sensitivity heatmap, six structural sections.
+      </p>
+    </div>
+
+    <!-- Key findings -->
+    <div class="grid md:grid-cols-3 gap-8 mb-20">
+      <div class="border-l-2 border-[var(--color-accent)] pl-5">
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">Finding 01</div>
+        <div class="font-semibold text-lg mb-2 leading-snug">"93% of KPIs met" is 79%</div>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          The Vision 2030 Annual Report's headline conflates "≥100% achieved" (309/390) with "85-99% near target" (52/390).
+          Strict pass rate is 79.2%. The two numbers travel together everywhere in this report.
+        </p>
+      </div>
+      <div class="border-l-2 border-[var(--color-accent)] pl-5">
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">Finding 02</div>
+        <div class="font-semibold text-lg mb-2 leading-snug">"Non-oil share" varies by 26 ppts across 5 sources</div>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          SAMA 49.9% / market consensus 51% / Vision 2030 office ~55% / IMF-GASTAT 76% / GASTAT nominal 80.6%.
+          The May 2025 GDP rebasing (base year 2018 → 2023) revised non-oil GDP +20%. Every chart in this report
+          flags which base it uses.
+        </p>
+      </div>
+      <div class="border-l-2 border-[var(--color-accent)] pl-5">
+        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">Finding 03</div>
+        <div class="font-semibold text-lg mb-2 leading-snug">Fiscal buffer ≠ FX reserves — they differ 4×</div>
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+          MoF's "$104B fiscal buffer at SAMA" is government deposits. IMF/SAMA's "$415B Net Foreign Assets" is total
+          reserves (incl. PIF offshore + money base). Never substitute one for the other.
+        </p>
+      </div>
+    </div>
+
+    <!-- Figure grid -->
+    <div class="mb-12">
+      <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-4">Selected exhibits (9 of 41)</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {figures.map(f => (
+          <figure class="bg-white border border-[var(--color-rule)] rounded overflow-hidden hover:shadow-lg transition group">
+            <div class="aspect-[4/3] overflow-hidden bg-[var(--color-paper)]">
+              <img src={f.src} alt={f.title} class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+            </div>
+            <figcaption class="p-4 border-t border-[var(--color-rule)]">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent)] mb-1">{f.section}</div>
+              <div class="text-sm text-[var(--color-ink)] leading-snug">{f.title}</div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="flex flex-wrap gap-4 items-center justify-between pt-8 border-t border-[var(--color-rule)]">
+      <div>
+        <div class="font-semibold mb-1">Read the full report</div>
+        <p class="text-sm text-[var(--color-muted)]">Chinese, 50 pages PDF, 7 MB. English summary in development.</p>
+      </div>
+      <a
+        href={asset('reports/saudi-vision-2030-report.pdf')}
+        target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-ink)] text-[var(--color-paper)] rounded font-medium hover:bg-[var(--color-brand)] transition"
+      >
+        Open PDF
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>

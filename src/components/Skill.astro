@@ -1,0 +1,119 @@
+---
+const modes = [
+  {
+    name: "light",
+    tagline: "5-page decision memo",
+    bullets: ["60-80 min, single LLM", "0 charts, pure footnote citations", "BLUF executive summary", "0 hard stops, 12-item grep self-check"],
+    use: "Exec brief · 1-hour decision support · internal memo",
+  },
+  {
+    name: "medium",
+    tagline: "10-15p topic analysis",
+    bullets: ["Half-day, 3-5 hours", "3-8 custom charts (chart_template shared)", "PDF + Word derivations", "1 sign-off checkpoint after draft"],
+    use: "Topic deep-dive · board memo with data · half-day analysis",
+    highlight: true,
+  },
+  {
+    name: "heavy",
+    tagline: "Flagship 15k+ word report",
+    bullets: ["Days-to-weeks, multi-LLM optional", "20-35+ charts, full visual production stack", "PDF + Word + WeChat md + HTML publication", "3 sign-off checkpoints (outline / draft / final)"],
+    use: "Industry deep-dive · macro thesis · policy assessment · flagship investor publication",
+  },
+];
+---
+<section id="skill" class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+
+    <div class="max-w-3xl mb-16">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+        Open-source · MIT · v0.6.0
+      </div>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+        <span class="font-mono text-[var(--color-accent-soft)]">/analyst-research</span><br />
+        The skill behind the case study.
+      </h2>
+      <p class="text-lg text-white/70 leading-relaxed">
+        A Claude Skill that turns a single hypothesis into a publication-ready research report.
+        User picks scope at trigger time — light memo, medium brief, or heavy flagship — and the workflow
+        adapts. Battle-tested on the Saudi Vision 2030 deep-dive above.
+      </p>
+    </div>
+
+    <!-- Mode picker visualization -->
+    <div class="bg-[var(--color-ink-soft)] border border-white/10 rounded-lg p-6 md:p-8 mb-12 font-mono text-sm">
+      <div class="text-white/40 mb-4">$ /analyst-research</div>
+      <pre class="text-white/90 leading-relaxed whitespace-pre-wrap text-xs md:text-sm overflow-x-auto"><span class="text-[var(--color-accent-soft)]">analyst-research</span> · investment research workflow skill
+Pick a scope based on your project size:
+
+  <span class="text-white font-semibold">light</span>    5-page decision memo, 0 charts, 60-80 min
+           Single LLM. Pure markdown footnote citations.
+
+  <span class="text-white font-semibold">medium</span>   10-15p topic analysis, 3-8 charts, half-day
+           PDF + Word. Sign-off checkpoint after draft.
+
+  <span class="text-white font-semibold">heavy</span>    Flagship report 15k+ words, 20-35+ charts, days-weeks
+           Multi-LLM optional. PDF + Word + WeChat + HTML.
+
+Which mode fits your project? <span class="text-[var(--color-accent-soft)]">_</span></pre>
+    </div>
+
+    <!-- Mode cards -->
+    <div class="grid md:grid-cols-3 gap-4 mb-16">
+      {modes.map(m => (
+        <div class={`p-6 rounded-lg border ${m.highlight ? "bg-[var(--color-brand)] border-[var(--color-brand-soft)]" : "bg-[var(--color-ink-soft)] border-white/10"}`}>
+          <div class={`font-mono text-xs uppercase tracking-wider mb-3 ${m.highlight ? "text-[var(--color-accent-soft)]" : "text-white/40"}`}>
+            Mode · {m.name}
+          </div>
+          <div class="text-xl font-semibold mb-4 text-white">{m.tagline}</div>
+          <ul class="space-y-2 mb-5">
+            {m.bullets.map(b => (
+              <li class="text-sm text-white/70 flex gap-2">
+                <span class="text-[var(--color-accent-soft)]">→</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="text-xs text-white/50 pt-4 border-t border-white/10">
+            <span class="uppercase tracking-wider font-mono">Use for</span><br />{m.use}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- What's inside -->
+    <div class="grid md:grid-cols-2 gap-12 mb-16">
+      <div>
+        <h3 class="text-2xl font-semibold mb-4">What's inside</h3>
+        <ul class="space-y-3 text-white/70">
+          <li><span class="font-mono text-[var(--color-accent-soft)]">references/workflow_*.md</span> — three mode-specific step-by-step procedures (6 / 8 / 11 steps).</li>
+          <li><span class="font-mono text-[var(--color-accent-soft)]">references/report_style_spec.md</span> — visual production rules: McKinsey blue-grey palette, Songti SC CJK, fig-number-vs-data alignment red lines.</li>
+          <li><span class="font-mono text-[var(--color-accent-soft)]">scripts/chart_template.py</span> — shared matplotlib styling. Every figure goes through it.</li>
+          <li><span class="font-mono text-[var(--color-accent-soft)]">scripts/publication-style-template.html</span> — HTML publication template for heavy-mode WeChat / web derivation.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-2xl font-semibold mb-4">Design principles</h3>
+        <ul class="space-y-3 text-white/70">
+          <li><strong class="text-white">Source provenance is non-negotiable.</strong> Every number traces to a primary source or gets flagged ⚠️ and excluded from conclusions.</li>
+          <li><strong class="text-white">Three-state labeling.</strong> Fact / estimate / inference get distinct wording. Never collapsed.</li>
+          <li><strong class="text-white">AI is the copilot, not the pilot.</strong> Workflow has explicit human checkpoints. The hypothesis, the scope, the final sign-off — all human.</li>
+          <li><strong class="text-white">Self-evolving.</strong> Each project closes with a retrospective. Validated learnings promote back to the skill.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Install -->
+    <div class="bg-[var(--color-ink-soft)] border border-white/10 rounded-lg p-6 md:p-8">
+      <div class="text-xs font-mono uppercase tracking-wider text-white/40 mb-4">Install in Claude Code</div>
+      <div class="font-mono text-sm md:text-base text-white/90 space-y-2">
+        <div>$ /plugin marketplace add reagan475614947/market-research-skills</div>
+        <div>$ /plugin install market-research-skills@market-research-skills</div>
+      </div>
+      <div class="text-xs text-white/50 mt-4">
+        MIT licensed. Source on
+        <a href="https://github.com/reagan475614947/market-research-skills" class="text-[var(--color-accent-soft)] hover:underline" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>

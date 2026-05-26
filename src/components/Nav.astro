@@ -1,0 +1,28 @@
+---
+const links = [
+  { href: "#case", label: "Case Study" },
+  { href: "#skill", label: "Skill" },
+  { href: "#method", label: "Methodology" },
+  { href: "#about", label: "About" },
+  { href: "#contact", label: "Contact" },
+];
+---
+<nav class="sticky top-0 z-50 bg-[var(--color-paper)]/85 backdrop-blur border-b border-[var(--color-rule)]">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between text-sm">
+    <a href="#top" class="font-mono font-semibold tracking-tight text-[var(--color-ink)]">
+      ligen<span class="text-[var(--color-accent)]">.</span>
+    </a>
+    <ul class="hidden md:flex gap-8 text-[var(--color-muted)]">
+      {links.map(l => (
+        <li><a href={l.href} class="hover:text-[var(--color-ink)] transition">{l.label}</a></li>
+      ))}
+    </ul>
+    <a
+      href="https://github.com/reagan475614947/market-research-skills"
+      class="text-xs font-mono px-3 py-1.5 rounded border border-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition"
+      target="_blank" rel="noopener"
+    >
+      GitHub →
+    </a>
+  </div>
+</nav>

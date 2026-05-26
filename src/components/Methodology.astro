@@ -1,0 +1,97 @@
+---
+const steps = [
+  {
+    n: "01",
+    title: "Hypothesis lock",
+    body: "Single-sentence research question, written before any search. Travels with the project file from day one — never re-derived from the draft.",
+  },
+  {
+    n: "02",
+    title: "Broad-spectrum search",
+    body: "Five source categories: official statistics, multilateral institutions (IMF / WB / IEA), peer central banks, sell-side investment banks, primary corporate filings. PDFs downloaded in full, not just abstracts.",
+  },
+  {
+    n: "03",
+    title: "Outline + visual plan",
+    body: "Section structure approved by user before drafting. Each section's chart count and chart type planned alongside the prose argument.",
+  },
+  {
+    n: "04",
+    title: "Data extraction + chart production",
+    body: "CSV + Python script pair for every chart. chart_template.py enforces palette, fonts, label legibility. Title-number-must-match-data discipline.",
+  },
+  {
+    n: "05",
+    title: "Draft writing (one continuous pass)",
+    body: "Single-LLM end-to-end draft. Cite-as-you-write — never cite-after-draft. Filler words and self-narration grep'd out.",
+  },
+  {
+    n: "06",
+    title: "Self-critique (6 dimensions)",
+    body: "Facts / unit consistency / citation accuracy / cross-section coherence / argument flow / language register. Three rounds. Failures route back to step 5 surgically.",
+  },
+  {
+    n: "07",
+    title: "Independent verification",
+    body: "Every load-bearing number cross-checked via the verifying skill against whitelisted primary sources. Anything that fails verification gets the ⚠️ flag or gets cut.",
+  },
+  {
+    n: "08",
+    title: "Final sign-off + derivations",
+    body: "User reads the full PDF, marks revisions, signs. Then derivations: WeChat-paginated md, HTML publication, Word docx.",
+  },
+];
+---
+<section id="method" class="bg-[var(--color-paper)]">
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+
+    <div class="max-w-3xl mb-16">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">Methodology · how it works</div>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+        AI vibe coding,<br />with discipline.
+      </h2>
+      <p class="text-lg text-[var(--color-muted)] leading-relaxed">
+        I treat AI as a junior analyst — fast, broad-knowledge, untrained instinct.
+        My job is to design the workflow it runs through, and to catch its mistakes systematically before they reach the page.
+        Below is the 8-step skeleton at the heart of <span class="font-mono text-[var(--color-accent)]">analyst-research</span>'s
+        medium and heavy modes. Light mode is a 6-step compression of the same logic.
+      </p>
+    </div>
+
+    <!-- Steps timeline -->
+    <ol class="space-y-2">
+      {steps.map((s, i) => (
+        <li class="grid md:grid-cols-[80px_1fr] gap-4 md:gap-8 py-6 border-t border-[var(--color-rule)]">
+          <div class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{s.n}</div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">{s.title}</h3>
+            <p class="text-[var(--color-muted)] leading-relaxed">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <!-- LLM division of labor -->
+    <div class="mt-20 bg-[var(--color-paper-warm)] border border-[var(--color-rule)] rounded-lg p-6 md:p-10">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-3">
+        Multi-LLM division of labor (heavy mode, optional)
+      </div>
+      <h3 class="text-2xl font-semibold mb-6">Different LLMs are good at different things.</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <div class="font-mono text-sm text-[var(--color-brand)] mb-2">Claude</div>
+          <p class="text-sm text-[var(--color-muted)] leading-relaxed">English-language IB-quality writing, structural skeletons, integration, end-to-end orchestration. Default model for every step.</p>
+        </div>
+        <div>
+          <div class="font-mono text-sm text-[var(--color-brand)] mb-2">GPT-5</div>
+          <p class="text-sm text-[var(--color-muted)] leading-relaxed">Numerical precision, unit-consistency critique, fact verification, language register red lines. Sole external critique voice in step 6.</p>
+        </div>
+        <div>
+          <div class="font-mono text-sm text-[var(--color-brand)] mb-2">DeepSeek</div>
+          <p class="text-sm text-[var(--color-muted)] leading-relaxed">Chinese-language polishing patterns. Distilled into a 6-pattern style guide and now applied by Claude solo — not invoked at runtime.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
