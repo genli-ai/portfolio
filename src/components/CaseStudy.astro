@@ -2,15 +2,15 @@
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 const figures = [
-  { src: asset("figures/fig_1_1_gdp_rebasing_before_after.jpg"), title: "GDP rebasing: a 2018→2023 base shift swung non-oil share from 50% to 76%", section: "§1 Real Dependency" },
-  { src: asset("figures/fig_1_2_non_oil_share_5_sources.jpg"), title: "Five sources disagree on Saudi non-oil GDP share by 26 ppts — pick the right one, then triangulate", section: "§1 Real Dependency" },
-  { src: asset("figures/fig_3_1_breakeven_oil_4_sources.jpg"), title: "Four institutions on the breakeven oil price — IMF, MoF, IIF, market estimates side-by-side", section: "§3 Fiscal Cliff" },
-  { src: asset("figures/fig_3_4_three_scenarios.jpg"), title: "Three deficit scenarios — base, downside, upside — by cumulative SAR through 2030", section: "§3 Fiscal Cliff" },
-  { src: asset("figures/fig_4_1_pif_aum_history.jpg"), title: "PIF AUM trajectory 2015→2024 — the engine, the constraint, the political fact", section: "§4 PIF Engine" },
-  { src: asset("figures/fig_2_4_pif_aum_vs_non_oil_growth.jpg"), title: "PIF AUM growth vs non-oil GDP growth — the leverage ratio that frames every Vision 2030 number", section: "§2 PIF Mechanics" },
-  { src: asset("figures/fig_5_1_female_lfp.jpg"), title: "Female labor force participation — the standout structural success of Vision 2030", section: "§5 Social Reform" },
-  { src: asset("figures/fig_6_1_16_kpi_quadrant.jpg"), title: "16 headline KPIs — quadrant view by progress × Vision target", section: "§6 Scorecard" },
-  { src: asset("figures/fig_6_5_sensitivity_heatmap.jpg"), title: "Oil price × spending discipline — sensitivity heatmap for the 2030 fiscal endpoint", section: "§6 Scorecard" },
+  { src: asset("figures/fig_1_1_gdp_rebasing_before_after_en.jpg"), title: "GDP rebasing: a 2018→2023 base shift swung non-oil share from 50% to 76%", section: "§1 Real Dependency" },
+  { src: asset("figures/fig_1_2_non_oil_share_5_sources_en.jpg"), title: "Five sources disagree on Saudi non-oil GDP share by 26 ppts — pick the right one, then triangulate", section: "§1 Real Dependency" },
+  { src: asset("figures/fig_3_1_breakeven_oil_4_sources_en.jpg"), title: "Four institutions on the breakeven oil price — IMF, MoF, IIF, market estimates side-by-side", section: "§3 Fiscal Cliff" },
+  { src: asset("figures/fig_3_4_three_scenarios_en.jpg"), title: "Three deficit scenarios — base, downside, upside — by cumulative SAR through 2030", section: "§3 Fiscal Cliff" },
+  { src: asset("figures/fig_4_1_pif_aum_history_en.jpg"), title: "PIF AUM trajectory 2015→2024 — the engine, the constraint, the political fact", section: "§4 PIF Engine" },
+  { src: asset("figures/fig_2_4_pif_aum_vs_non_oil_growth_en.jpg"), title: "PIF AUM growth vs non-oil GDP growth — the leverage ratio that frames every Vision 2030 number", section: "§2 PIF Mechanics" },
+  { src: asset("figures/fig_5_1_female_lfp_en.jpg"), title: "Female labor force participation — the standout structural success of Vision 2030", section: "§5 Social Reform" },
+  { src: asset("figures/fig_6_1_16_kpi_quadrant_en.jpg"), title: "16 headline KPIs — quadrant view by progress × Vision target", section: "§6 Scorecard" },
+  { src: asset("figures/fig_6_5_sensitivity_heatmap_en.jpg"), title: "Oil price × spending discipline — sensitivity heatmap for the 2030 fiscal endpoint", section: "§6 Scorecard" },
 ];
 ---
 <section id="case" class="bg-[var(--color-paper-warm)] border-y border-[var(--color-rule)]">
@@ -77,20 +77,47 @@ const figures = [
       </div>
     </div>
 
-    <!-- CTA -->
-    <div class="flex flex-wrap gap-4 items-center justify-between pt-8 border-t border-[var(--color-rule)]">
-      <div>
-        <div class="font-semibold mb-1">Read the full report</div>
-        <p class="text-sm text-[var(--color-muted)]">Chinese, 50 pages PDF, 7 MB. English summary in development.</p>
+    <!-- Download CTAs -->
+    <div class="pt-8 border-t border-[var(--color-rule)]">
+      <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-4">Read the report</div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a
+          href={asset('reports/saudi-vision-2030-exec-summary-en.pdf')}
+          target="_blank" rel="noopener"
+          class="group p-5 rounded border border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-paper)] hover:bg-[var(--color-brand)] transition flex flex-col gap-2"
+        >
+          <div class="flex items-center justify-between">
+            <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-accent-soft)]">Recommended</div>
+            <span aria-hidden="true">→</span>
+          </div>
+          <div class="font-semibold text-lg leading-tight">Executive Summary</div>
+          <div class="text-sm opacity-80">English · 7 pages · 0.2 MB · 5-min read</div>
+        </a>
+        <a
+          href={asset('reports/saudi-vision-2030-report-en.pdf')}
+          target="_blank" rel="noopener"
+          class="group p-5 rounded border border-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition flex flex-col gap-2"
+        >
+          <div class="flex items-center justify-between">
+            <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-accent-soft)]">Full report</div>
+            <span aria-hidden="true">→</span>
+          </div>
+          <div class="font-semibold text-lg leading-tight">Half Done, Half Deferred</div>
+          <div class="text-sm text-[var(--color-muted)] group-hover:text-current">English · 55 pages · 1.3 MB · deep dive</div>
+        </a>
+        <a
+          href={asset('reports/saudi-vision-2030-report.pdf')}
+          target="_blank" rel="noopener"
+          class="group p-5 rounded border border-[var(--color-rule)] text-[var(--color-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)] transition flex flex-col gap-2"
+        >
+          <div class="flex items-center justify-between">
+            <div class="text-xs font-mono uppercase tracking-wider">Original Chinese</div>
+            <span aria-hidden="true">→</span>
+          </div>
+          <div class="font-semibold text-lg leading-tight">成功一半，推迟一半</div>
+          <div class="text-sm">中文版 · 50 页 · 7 MB · 完整原文</div>
+        </a>
       </div>
-      <a
-        href={asset('reports/saudi-vision-2030-report.pdf')}
-        target="_blank" rel="noopener"
-        class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-ink)] text-[var(--color-paper)] rounded font-medium hover:bg-[var(--color-brand)] transition"
-      >
-        Open PDF
-        <span aria-hidden="true">→</span>
-      </a>
     </div>
 
   </div>
