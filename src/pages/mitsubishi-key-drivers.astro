@@ -1,0 +1,238 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Install from '../components/Install.astro';
+import T from '../components/T.astro';
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
+// Demo of /verifying applied to a real company. Fiscal years end March 31:
+// FY2024 = ended 2025-03-31 (audited full year); FY2025 = ended 2026-03-31
+// (announced 2026-05-12). All figures are MHI's own official IR disclosure,
+// retrieved via search — original PDFs returned 403 in the build environment,
+// so they carry a ⚠ (partially verified) label, not a clean ✅.
+
+const drivers = [
+  {
+    n: "01",
+    label: "⚠",
+    titleEn: "GTCC gas turbines · Energy Systems",
+    titleZh: "GTCC 燃气轮机 · Energy Systems",
+    whyEn: "The #1 order-growth engine — an electricity-demand supercycle from AI data centers, with gas as the transition fuel.",
+    whyZh: "订单增长第一引擎——AI 数据中心拉动的电力需求超级周期，天然气作为过渡燃料。",
+    figEn: `FY2024 Energy order intake <strong>+¥210.2bn</strong> YoY; <strong>25 large-frame gas turbines</strong> booked. FY2025 order intake hit a record <strong>~¥7.7tn</strong>, which MHI attributes "mainly to strong GTCC orders in North America and Asia."`,
+    figZh: `FY2024 Energy 订单同比 <strong>+¥210.2bn</strong>，全年签约 <strong>25 台大型燃机</strong>。FY2025 订单创纪录 <strong>约 ¥7.7 万亿</strong>，MHI 称"主要由北美、亚洲 GTCC 强劲订单驱动"。`,
+    sources: [
+      { label: "Energy Systems FY2024", href: "https://www.mhi.com/finance/finance/performance/fy20244q/segment/energy.html" },
+      { label: "FY2025 results", href: "https://www.mhi.com/news/26051201.html" },
+    ],
+  },
+  {
+    n: "02",
+    label: "⚠",
+    titleEn: "Defense & Space · within ADS",
+    titleZh: "防卫与航天 · ADS 板块内",
+    whyEn: "Japan's defense build-out; MHI names Defense & Space as the main revenue-growth driver, executing a backlog accumulated since FY2023. (Corporate financial disclosure only — no force-composition or policy claims.)",
+    whyZh: "承接日本防卫力强化；MHI 将 Defense & Space 列为收入增长的主要驱动，执行自 FY2023 起累积的订单储备。（仅就公司财务披露而言，不涉及装备构成或政策。）",
+    figEn: `FY2024 ADS revenue <strong>+¥239.0bn</strong> YoY (mainly Defense & Space); segment business profit <strong>+¥27.2bn</strong>; order intake <strong>+¥31.4bn</strong>. FY2023 was the highest-ever defense order intake; FY2024 nearly matched it.`,
+    figZh: `FY2024 ADS 收入同比 <strong>+¥239.0bn</strong>（主要来自 Defense & Space），板块业务利润 <strong>+¥27.2bn</strong>，订单 <strong>+¥31.4bn</strong>。FY2023 为防卫业务史上最高订单，FY2024 几乎持平。`,
+    sources: [
+      { label: "Aircraft, Defense & Space FY2024", href: "https://www.mhi.com/finance/finance/performance/fy20244q/segment/ads.html" },
+    ],
+  },
+  {
+    n: "03",
+    label: "✅",
+    titleEn: "Decarbonization · GX Solutions",
+    titleZh: "脱碳 · GX Solutions",
+    whyEn: "Long-term optionality across hydrogen / ammonia, CCUS and nuclear — positioned as a future growth domain.",
+    whyZh: "氢 / 氨、CCUS、核电构成的长期期权，被定位为未来增长域。",
+    figEn: `April 2024: MHI established <strong>GX Solutions</strong> as a dedicated energy-transition business domain — CCUS (incl. the CO₂MPACT series and LCO₂ carriers), hydrogen / ammonia, and nuclear (restarts + next-gen). <em>Label is ✅ for the structural fact of GX Solutions' establishment; forward demand figures remain ⚠.</em>`,
+    figZh: `2024 年 4 月，MHI 设立 <strong>GX Solutions</strong> 作为专门的能源转型业务域——CCUS（含 CO₂MPACT 系列与 LCO₂ 运输船）、氢 / 氨、核电（重启 + 下一代）。<em>✅ 仅针对"已设立 GX Solutions"这一结构性事实；前瞻需求数字仍为 ⚠。</em>`,
+    sources: [
+      { label: "MHI Report 2024 — GX Solutions", href: "https://www.mhi.com/finance/library/annual/pdf/report_2024_13.pdf" },
+      { label: "CCUS", href: "https://www.mhi.com/business/solutions/ccus/" },
+    ],
+  },
+  {
+    n: "04",
+    label: "⚠",
+    titleEn: "Aftermarket & services",
+    titleZh: "售后与服务",
+    whyEn: "High-margin, recurring revenue on a large installed base of turbines and machinery — a stabilizer behind headline order swings.",
+    whyZh: "庞大燃机与机械装机基座上的高毛利、可复现收入——订单波动背后的稳定器。",
+    figEn: `MHI: revenue is rising "both in original equipment and services," supported by the order growth of recent years.`,
+    figZh: `MHI 称收入"在原始设备(OE)与服务两端"均上升，由近年订单增长支撑。`,
+    sources: [
+      { label: "FY2025 results", href: "https://www.mhi.com/news/26051201.html" },
+    ],
+  },
+  {
+    n: "05",
+    label: "⚠",
+    titleEn: "Profitability & cash generation",
+    titleZh: "盈利与现金生成",
+    whyEn: "Operating leverage plus portfolio discipline turning the order boom into record profit and cash.",
+    whyZh: "经营杠杆叠加业务组合纪律，把订单景气转化为创纪录的利润与现金。",
+    figEn: `FY2024: business profit <strong>¥383.1bn</strong> (+¥100.6bn, <strong>+36%</strong>); order intake <strong>¥7,071.2bn</strong>; revenue <strong>¥5,027.1bn</strong> (+¥370.0bn); record net income & free cash flow; FY2025 dividend planned at ¥24/share. <br/>🔎 One-level self-check: 100.6 / 282.5 = +35.6% ≈ +36% — internally consistent.`,
+    figZh: `FY2024：业务利润 <strong>¥383.1bn</strong>（+¥100.6bn，<strong>+36%</strong>）；订单 <strong>¥7,071.2bn</strong>；收入 <strong>¥5,027.1bn</strong>（+¥370.0bn）；净利润与自由现金流均创纪录；FY2025 计划股息 ¥24/股。<br/>🔎 一层自检：100.6 / 282.5 = +35.6% ≈ +36%，内部一致。`,
+    sources: [
+      { label: "FY2024 highest-ever results", href: "https://www.mhi.com/news/25050901.html" },
+    ],
+  },
+];
+
+const blocked = [
+  "https://www.mhi.com/finance/library/result/pdf/fy20244q/presentation_summary.pdf",
+  "https://www.mhi.com/finance/library/result/pdf/fy20244q/financial_results.pdf",
+  "https://www.mhi.com/finance/library/result/pdf/fy20254q/presentation.pdf",
+];
+
+const labels = [
+  { sym: "✅", en: "Verified", zh: "已核实" },
+  { sym: "⚠", en: "Partially verified", zh: "部分核实" },
+  { sym: "⚖", en: "Multi-source conflict", zh: "多源冲突" },
+  { sym: "🔎", en: "One-level reasoning", zh: "一层推理" },
+  { sym: "🔒", en: "Needs help to download", zh: "需协助下载" },
+];
+---
+<Base title="Mitsubishi Heavy Industries · /verifying demo · Gen">
+  <Nav />
+  <main>
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+      <a href={asset('verifying')} class="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition inline-flex items-center gap-1.5">
+        <span aria-hidden="true">←</span> <T en="/verifying" zh="/verifying" />
+      </a>
+    </div>
+
+    <!-- Hero -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div class="max-w-3xl">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+            <T en="Demo · /verifying applied" zh="示例 · /verifying 实战" />
+          </div>
+          <h1 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+            Mitsubishi Heavy Industries
+            <span class="block text-xl md:text-2xl font-mono text-[var(--color-accent-soft)] mt-3">三菱重工 · TSE 7011</span>
+          </h1>
+          <p class="text-lg text-white/70 leading-relaxed">
+            <T
+              en="Five core key drivers — each grounded in MHI's own official disclosure, then labeled with the /verifying confidence scheme. The point of the demo is the discipline, not a clean win: when the originals can't be opened, the skill refuses to over-claim."
+              zh="五个核心 key driver——每一个都落到三菱重工自己的官方披露上，再用 /verifying 的置信度标签定级。这个示例展示的是纪律，而非漂亮结论：原件打不开时，skill 拒绝过度断言。"
+            />
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Method & limitation -->
+    <section class="bg-[var(--color-paper-warm)] border-b border-[var(--color-rule)]">
+      <div class="max-w-6xl mx-auto px-6 py-10 md:py-12">
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-3">
+          <T en="Method & limitation" zh="方法与限制" />
+        </div>
+        <p class="text-[var(--color-muted)] leading-relaxed max-w-3xl">
+          <T
+            en="Every access to <span class='font-mono'>mhi.com</span> returned <strong>HTTP 403</strong> in the build environment (anti-scrape / geo wall), and the Internet Archive was blocked too. So figures below come from MHI's official IR pages and news releases (issuer-primary disclosure) via search retrieval — <strong>not</strong> a full original-PDF read. Per the skill's &quot;snippet ≠ verified&quot; rule, that caps them at <strong>⚠ partially verified</strong>, with the original-PDF links handed back below (🔒) to confirm the exact page / table."
+            zh="构建环境下对 <span class='font-mono'>mhi.com</span> 的每次访问都返回 <strong>HTTP 403</strong>（反爬 / 地域墙），archive.org 也被禁。因此下列数字来自三菱重工官方 IR 页面与新闻稿（发行方一手披露）的检索结果——<strong>而非</strong>对原始 PDF 的完整通读。按 skill 的“摘要 ≠ 已核实”红线，它们至多为 <strong>⚠ 部分核实</strong>，并在下方把原始 PDF 链接（🔒）交还以核对精确页码 / 表号。"
+          />
+        </p>
+      </div>
+    </section>
+
+    <!-- Drivers -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+            <T en="Five core key drivers" zh="五个核心 key driver" />
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
+            <T en="What actually moves the business." zh="真正驱动这家公司的东西。" />
+          </h2>
+        </div>
+
+        <ol class="space-y-2">
+          {drivers.map((d) => (
+            <li class="grid md:grid-cols-[80px_1fr] gap-4 md:gap-8 py-7 border-t border-[var(--color-rule)]">
+              <div class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{d.n}</div>
+              <div>
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span class="text-lg" aria-hidden="true">{d.label}</span>
+                  <h3 class="text-xl font-semibold"><T en={d.titleEn} zh={d.titleZh} /></h3>
+                </div>
+                <p class="text-[var(--color-muted)] leading-relaxed mb-3"><T en={d.whyEn} zh={d.whyZh} /></p>
+                <p class="text-sm text-[var(--color-ink)] leading-relaxed bg-[var(--color-paper-warm)] border border-[var(--color-rule)] rounded-md px-4 py-3">
+                  <T en={d.figEn} zh={d.figZh} />
+                </p>
+                <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs font-mono">
+                  {d.sources.map(s => (
+                    <a href={s.href} target="_blank" rel="noopener" class="text-[var(--color-brand)] hover:text-[var(--color-accent)] transition inline-flex items-center gap-1">
+                      <span aria-hidden="true">↗</span> {s.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Conflict flag + download-blocked -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+              ⚖ <T en="Multi-source conflict" zh="多源冲突" />
+            </div>
+            <p class="text-white/70 leading-relaxed">
+              <T
+                en="A retrieval summary framed FY2025 order intake as &quot;+20% YoY to ¥7.7tn&quot; — but ¥7.7tn against FY2024's ¥7,071.2bn is only about <strong>+9%</strong>. The &quot;+20%&quot; may be measured off an earlier ~¥6tn guidance, or be a summary miscalc. Treat the <strong>growth rate as unconfirmed</strong> until the original is opened; the ¥7.7tn record level is reported by MHI."
+                zh="一份检索摘要把 FY2025 订单写成“同比 +20% 至 ¥7.7 万亿”——但 ¥7.7tn 相对 FY2024 的 ¥7,071.2bn 仅约 <strong>+9%</strong>。“+20%”可能以早先约 ¥6tn 的指引为基数，或为摘要误算。<strong>增速请视为未确认</strong>，以原件为准；¥7.7tn 这一创纪录水平为 MHI 所报。"
+              />
+            </p>
+          </div>
+          <div>
+            <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+              🔒 <T en="Needs your help to download" zh="需你协助下载" />
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed mb-3">
+              <T en="Blocked by anti-scrape / geo wall (403). Open these in an unblocked environment to upgrade the ⚠ figures to ✅ with exact locators:" zh="被反爬 / 地域墙拦截（403）。在可访问环境打开以下原件，可把 ⚠ 升级为 ✅ 并补上精确定位：" />
+            </p>
+            <ul class="space-y-1.5 font-mono text-xs break-all">
+              {blocked.map(u => (
+                <li><a href={u} target="_blank" rel="noopener" class="text-[var(--color-accent-soft)] hover:underline">{u}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Labels -->
+        <div class="mt-14 pt-10 border-t border-white/10">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+            <T en="Confidence labels" zh="置信度标签" />
+          </div>
+          <ul class="flex flex-wrap gap-x-8 gap-y-2">
+            {labels.map(l => (
+              <li class="flex items-center gap-2 text-white/80 font-mono text-sm">
+                <span class="text-base">{l.sym}</span><span><T en={l.en} zh={l.zh} /></span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <Install />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
