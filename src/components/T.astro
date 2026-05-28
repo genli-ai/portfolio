@@ -1,0 +1,11 @@
+---
+// Bilingual text helper. Renders both languages as sibling spans;
+// global.css hides the inactive one based on <html data-lang>.
+// `en`/`zh` may contain trusted inline markup (authored by us).
+interface Props {
+  en: string;
+  zh: string;
+}
+const { en, zh } = Astro.props;
+---
+<span class="lang-en" set:html={en} /><span class="lang-zh" set:html={zh} />

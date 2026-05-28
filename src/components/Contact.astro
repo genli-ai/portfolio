@@ -1,27 +1,32 @@
 ---
+import T from './T.astro';
 const links = [
-  { label: "Email", value: "ligen.thu@gmail.com", href: "mailto:ligen.thu@gmail.com" },
-  { label: "LinkedIn", value: "gen-li1993", href: "https://www.linkedin.com/in/gen-li1993/" },
-  { label: "GitHub", value: "reagan475614947", href: "https://github.com/reagan475614947" },
+  { labelEn: "Email", labelZh: "邮箱", value: "ligen.thu@gmail.com", href: "mailto:ligen.thu@gmail.com" },
+  { labelEn: "LinkedIn", labelZh: "LinkedIn", value: "linkedin.com/in/gen-li1993", href: "https://www.linkedin.com/in/gen-li1993/" },
+  { labelEn: "GitHub", labelZh: "GitHub", value: "github.com/reagan475614947", href: "https://github.com/reagan475614947" },
 ];
 ---
 <section id="contact" class="bg-[var(--color-paper-warm)]">
   <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
 
     <div class="max-w-3xl">
-      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">Contact</div>
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+        <T en="Contact" zh="联系" />
+      </div>
       <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
-        Let's talk.
+        <T en="Let's talk." zh="聊聊吧。" />
       </h2>
       <p class="text-lg text-[var(--color-muted)] leading-relaxed mb-10">
-        Open to roles, advisory work, and research collaborations across MENA AI-for-finance.
-        If you're building AI tooling for sovereign capital, equity research, or policy analysis — I'd like to hear about it.
+        <T
+          en="Building AI workflows for investment research, or wondering whether this skill could slot into your own process? Reach out — the source is open, and I'm always glad to trade notes."
+          zh="也在做投研方向的 AI 工作流，或者想看看这个 skill 能不能接进自己的流程？都欢迎找我聊——源码是公开的，我也很乐意交换想法。"
+        />
       </p>
 
       <dl class="space-y-3 font-mono text-sm">
         {links.map(l => (
           <div class="grid grid-cols-[120px_1fr] gap-4 py-3 border-t border-[var(--color-rule)]">
-            <dt class="text-[var(--color-muted)] uppercase tracking-wider text-xs pt-0.5">{l.label}</dt>
+            <dt class="text-[var(--color-muted)] uppercase tracking-wider text-xs pt-0.5"><T en={l.labelEn} zh={l.labelZh} /></dt>
             <dd>
               <a href={l.href} class="text-[var(--color-ink)] hover:text-[var(--color-accent)] transition" target="_blank" rel="noopener">{l.value}</a>
             </dd>
@@ -30,14 +35,4 @@ const links = [
       </dl>
     </div>
   </div>
-
-  <footer class="border-t border-[var(--color-rule)] mt-12">
-    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[var(--color-muted)]">
-      <div>© 2026 Gen Li. All rights reserved.</div>
-      <div class="flex gap-6">
-        <a href="https://github.com/reagan475614947/market-research-skills" class="hover:text-[var(--color-ink)] transition" target="_blank" rel="noopener">analyst-research source</a>
-        <span>Built with Astro + Tailwind · Claude Code</span>
-      </div>
-    </div>
-  </footer>
 </section>

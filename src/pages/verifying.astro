@@ -1,0 +1,186 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Install from '../components/Install.astro';
+import T from '../components/T.astro';
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
+const scenarios = [
+  {
+    n: "01",
+    titleEn: "Basic truthfulness", titleZh: "基本真伪",
+    bodyEn: "Are the numbers, facts and quotes in the statement accurate? Checked directly against the primary source.",
+    bodyZh: "说法里的数字、事实、引述准不准——直接对原始来源核对。",
+  },
+  {
+    n: "02",
+    titleEn: "Completeness", titleZh: "完整性",
+    bodyEn: "The source is right, but the quote is out of context. Supply the missing context rather than just confirming the words.",
+    bodyZh: "来源没错，但引用被掐头去尾、脱离了上下文——把缺的语境补回来，而不只是确认字句。",
+  },
+  {
+    n: "03",
+    titleEn: "One-level reasoning", titleZh: "一层推理核验",
+    tag: "🔎 Z = P × Q",
+    bodyEn: "When a number can't be traced directly, cross-check it via one level of metric decomposition — verify each sub-metric, recompute, reconcile.",
+    bodyZh: "直接数字追不到原始来源时，用指标拆解交叉验证：分别核 P 和 Q，再算回 Z 比对（只拆一层）。",
+  },
+  {
+    n: "04",
+    titleEn: "Negative statements", titleZh: "否定性陈述",
+    bodyEn: "\"X has never done Y\" can't be proven by search. Switch to hunting a counter-example; not finding one is not proof.",
+    bodyZh: "“X 从没做过 Y” 这类说法没法靠搜索证伪——转成“找反例”：找到即推翻，找不到也不等于成立。",
+  },
+  {
+    n: "05",
+    titleEn: "Multi-source conflict", titleZh: "多源冲突",
+    tag: "⚖",
+    bodyEn: "When two authoritative sources disagree on the same figure, don't force a pick — show them side by side and attribute the gap (definition / time point / revision).",
+    bodyZh: "两个权威来源对同一个数字打架时，不硬选——并排列出，并把差异归因（口径 / 时点 / 修订状态）。",
+  },
+];
+
+const rules = [
+  {
+    en: "<strong class='text-white'>Whitelisted sources only.</strong> Your files, official sites & databases, authoritative industry sources. Wikipedia, self-media, AI summaries and social posts don't count.",
+    zh: "<strong class='text-white'>只认白名单来源。</strong>你给的文件、官方网站与数据库、权威行业源。维基、自媒体、AI 摘要、社媒不算数。",
+  },
+  {
+    en: "<strong class='text-white'>Download the original, then conclude.</strong> For any report / chart / dataset, the original must be pulled locally and read in full. A search snippet is never \"verified.\"",
+    zh: "<strong class='text-white'>下载原件再下结论。</strong>涉及报告 / 图表 / 数据，必须把原件下到本地读完；只看搜索摘要不算“已核实”。",
+  },
+  {
+    en: "<strong class='text-white'>Blocked? Hand back the link.</strong> If auto-download hits a paywall / login / anti-scrape wall, verification pauses and the link goes back to you (🔒).",
+    zh: "<strong class='text-white'>下不到就交还链接。</strong>自动下载被墙（付费墙 / 登录 / 反爬）时暂停核验，把链接交给你（🔒）。",
+  },
+  {
+    en: "<strong class='text-white'>Can't find it? Say \"cannot verify.\"</strong> No guessing, no patching, no citing secondary paraphrases.",
+    zh: "<strong class='text-white'>核不到就直说“无法核实”。</strong>不猜、不补、不引二手转述。",
+  },
+  {
+    en: "<strong class='text-white'>Three states, never blurred.</strong> Fact / estimate / inference — only the first enters a \"verified\" conclusion.",
+    zh: "<strong class='text-white'>三态分明。</strong>事实 / 估算 / 推断——只有事实能进“已核实”的结论。",
+  },
+];
+
+const labels = [
+  { sym: "✅", en: "Verified", zh: "已核实" },
+  { sym: "⚠", en: "Partially verified", zh: "部分核实" },
+  { sym: "❌", en: "Cannot verify", zh: "无法核实" },
+  { sym: "🔎", en: "One-level reasoning", zh: "一层推理" },
+  { sym: "⚖", en: "Multi-source conflict", zh: "多源冲突" },
+  { sym: "🔒", en: "Needs your help to download", zh: "需你协助下载" },
+];
+---
+<Base title="/verifying · Gen">
+  <Nav />
+  <main>
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+      <a href={asset('#skills')} class="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition inline-flex items-center gap-1.5">
+        <span aria-hidden="true">←</span> <T en="Market Research plugin" zh="Market Research plugin" />
+      </a>
+    </div>
+
+    <!-- Hero -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+            Open-source · MIT · Market Research
+          </div>
+          <h1 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+            <span class="font-mono text-[var(--color-accent-soft)]">/verifying</span>
+          </h1>
+          <p class="text-lg text-white/70 leading-relaxed">
+            <T
+              en="Fact-checking with an analyst's discipline. Every claim — number, quote, event — is traced to a whitelisted primary source, or it comes back &quot;cannot verify.&quot; No improvising from search snippets."
+              zh="用分析师的纪律做事实核查。任何说法——数字、引述、事件——都要追到白名单里的原始来源，否则就返回“无法核实”。绝不靠搜索摘要现编结论。"
+            />
+          </p>
+        </div>
+
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+          <T en="How to use it" zh="怎么用" />
+        </div>
+        <p class="text-sm text-white/60 max-w-2xl leading-relaxed">
+          <T
+            en="Type <span class='font-mono text-[var(--color-accent-soft)]'>/verifying</span> and paste the statement to check. Also triggers on &quot;is this true&quot;, &quot;find the original source&quot;, &quot;where is this number from&quot;, &quot;two sources disagree&quot;, &quot;is it true X never did Y&quot;."
+            zh="输入 <span class='font-mono text-[var(--color-accent-soft)]'>/verifying</span>，把要核的说法贴进去。“这是真的吗”“找原始出处”“这个数从哪来”“两个来源对不上”“X 真的从没做过 Y 吗” 也会触发。"
+          />
+        </p>
+      </div>
+    </section>
+
+    <!-- Five scenarios -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <div class="max-w-3xl mb-16">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+            <T en="Five verification scenarios" zh="五种核验场景" />
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
+            <T en="One skill, five sub-flows." zh="一个 skill，五条子流程。" />
+          </h2>
+        </div>
+
+        <ol class="space-y-2">
+          {scenarios.map((s) => (
+            <li class="grid md:grid-cols-[80px_1fr] gap-4 md:gap-8 py-6 border-t border-[var(--color-rule)]">
+              <div class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{s.n}</div>
+              <div>
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 class="text-xl font-semibold"><T en={s.titleEn} zh={s.titleZh} /></h3>
+                  {s.tag && (
+                    <span class="text-[11px] font-mono px-2 py-0.5 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]">{s.tag}</span>
+                  )}
+                </div>
+                <p class="text-[var(--color-muted)] leading-relaxed"><T en={s.bodyEn} zh={s.bodyZh} /></p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Hard rules + output labels -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+              <T en="The hard rules" zh="核验的红线" />
+            </div>
+            <ul class="space-y-3 text-white/70">
+              {rules.map(r => (
+                <li><T en={r.en} zh={r.zh} /></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+              <T en="Output labels" zh="输出标签" />
+            </div>
+            <ul class="space-y-2">
+              {labels.map(l => (
+                <li class="flex items-center gap-3 text-white/80 font-mono text-sm">
+                  <span class="text-base w-6 text-center">{l.sym}</span>
+                  <span><T en={l.en} zh={l.zh} /></span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 pb-20 md:pb-28 pt-4">
+        <Install />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

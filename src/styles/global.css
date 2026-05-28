@@ -37,3 +37,9 @@ body {
 section[id] {
   scroll-margin-top: 5rem;
 }
+
+/* Bilingual toggle: show one language at a time. Default EN until JS sets data-lang. */
+html[data-lang="zh"] .lang-en,
+html:not([data-lang="zh"]) .lang-zh {
+  display: none;
+}

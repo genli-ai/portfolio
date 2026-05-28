@@ -1,123 +1,45 @@
 ---
+import T from './T.astro';
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
-const figures = [
-  { src: asset("figures/fig_1_1_gdp_rebasing_before_after_en.jpg"), title: "GDP rebasing: a 2018→2023 base shift swung non-oil share from 50% to 76%", section: "§1 Real Dependency" },
-  { src: asset("figures/fig_1_2_non_oil_share_5_sources_en.jpg"), title: "Five sources disagree on Saudi non-oil GDP share by 26 ppts — pick the right one, then triangulate", section: "§1 Real Dependency" },
-  { src: asset("figures/fig_3_1_breakeven_oil_4_sources_en.jpg"), title: "Four institutions on the breakeven oil price — IMF, MoF, IIF, market estimates side-by-side", section: "§3 Fiscal Cliff" },
-  { src: asset("figures/fig_3_4_three_scenarios_en.jpg"), title: "Three deficit scenarios — base, downside, upside — by cumulative SAR through 2030", section: "§3 Fiscal Cliff" },
-  { src: asset("figures/fig_4_1_pif_aum_history_en.jpg"), title: "PIF AUM trajectory 2015→2024 — the engine, the constraint, the political fact", section: "§4 PIF Engine" },
-  { src: asset("figures/fig_2_4_pif_aum_vs_non_oil_growth_en.jpg"), title: "PIF AUM growth vs non-oil GDP growth — the leverage ratio that frames every Vision 2030 number", section: "§2 PIF Mechanics" },
-  { src: asset("figures/fig_5_1_female_lfp_en.jpg"), title: "Female labor force participation — the standout structural success of Vision 2030", section: "§5 Social Reform" },
-  { src: asset("figures/fig_6_1_16_kpi_quadrant_en.jpg"), title: "16 headline KPIs — quadrant view by progress × Vision target", section: "§6 Scorecard" },
-  { src: asset("figures/fig_6_5_sensitivity_heatmap_en.jpg"), title: "Oil price × spending discipline — sensitivity heatmap for the 2030 fiscal endpoint", section: "§6 Scorecard" },
+const downloads = [
+  { href: asset('reports/saudi-vision-2030-exec-summary-en.pdf'), labelEn: "Executive summary", labelZh: "执行摘要", metaEn: "English · 7 pages", metaZh: "英文 · 7 页" },
+  { href: asset('reports/saudi-vision-2030-report-en.pdf'), labelEn: "Full report (English)", labelZh: "完整英文报告", metaEn: "English · 55 pages", metaZh: "英文 · 55 页" },
+  { href: asset('reports/saudi-vision-2030-report.pdf'), labelEn: "Full report (Chinese)", labelZh: "完整中文报告", metaEn: "中文 · 50 页", metaZh: "中文 · 50 页" },
 ];
 ---
 <section id="case" class="bg-[var(--color-paper-warm)] border-y border-[var(--color-rule)]">
   <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
 
-    <!-- Section header -->
-    <div class="max-w-3xl mb-16">
-      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">Case Study · 01</div>
-      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
-        Saudi Vision 2030, halfway through<span class="text-[var(--color-accent)]">.</span>
-        <br />A real scorecard.
+    <div class="max-w-3xl mb-10">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+        <T en="Proof · built with the skill" zh="实证 · 这个 skill 跑出来的" />
+      </div>
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight mb-6">
+        <T en="A 15,000-word Saudi Vision 2030 deep-dive" zh="一份 1.5 万字的沙特愿景 2030 深度研究" /><span class="text-[var(--color-accent)]">.</span>
       </h2>
-      <p class="text-lg text-[var(--color-muted)] leading-relaxed">
-        A 15,000-word, 41-figure investor-grade deep-dive published May 2026 — produced end-to-end with
-        my own AI-augmented research workflow. Every number traces to a primary source (IMF, GASTAT, SAMA, MoF,
-        PIF Annual Report, IIF). Three forward scenarios, sensitivity heatmap, six structural sections.
+      <p class="text-[var(--color-muted)] leading-relaxed">
+        <T
+          en="Produced end-to-end in heavy mode, with every number traceable to a primary source (IMF, GASTAT, SAMA, MoF, PIF, IIF). The example library is being rebuilt — this one stands in as the current reference deliverable."
+          zh="整篇用 heavy mode 从头跑到尾，每个数字都追得到原始来源（IMF、GASTAT、SAMA、MoF、PIF、IIF）。示例库正在重做，这篇先当作目前的参考成稿。"
+        />
       </p>
     </div>
 
-    <!-- Key findings -->
-    <div class="grid md:grid-cols-3 gap-8 mb-20">
-      <div class="border-l-2 border-[var(--color-accent)] pl-5">
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">Finding 01</div>
-        <div class="font-semibold text-lg mb-2 leading-snug">"93% of KPIs met" is 79%</div>
-        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
-          The Vision 2030 Annual Report's headline conflates "≥100% achieved" (309/390) with "85-99% near target" (52/390).
-          Strict pass rate is 79.2%. The two numbers travel together everywhere in this report.
-        </p>
-      </div>
-      <div class="border-l-2 border-[var(--color-accent)] pl-5">
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">Finding 02</div>
-        <div class="font-semibold text-lg mb-2 leading-snug">"Non-oil share" varies by 26 ppts across 5 sources</div>
-        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
-          SAMA 49.9% / market consensus 51% / Vision 2030 office ~55% / IMF-GASTAT 76% / GASTAT nominal 80.6%.
-          The May 2025 GDP rebasing (base year 2018 → 2023) revised non-oil GDP +20%. Every chart in this report
-          flags which base it uses.
-        </p>
-      </div>
-      <div class="border-l-2 border-[var(--color-accent)] pl-5">
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">Finding 03</div>
-        <div class="font-semibold text-lg mb-2 leading-snug">Fiscal buffer ≠ FX reserves — they differ 4×</div>
-        <p class="text-sm text-[var(--color-muted)] leading-relaxed">
-          MoF's "$104B fiscal buffer at SAMA" is government deposits. IMF/SAMA's "$415B Net Foreign Assets" is total
-          reserves (incl. PIF offshore + money base). Never substitute one for the other.
-        </p>
-      </div>
-    </div>
-
-    <!-- Figure grid -->
-    <div class="mb-12">
-      <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-4">Selected exhibits (9 of 41)</div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {figures.map(f => (
-          <figure class="bg-white border border-[var(--color-rule)] rounded overflow-hidden hover:shadow-lg transition group">
-            <div class="aspect-[4/3] overflow-hidden bg-[var(--color-paper)]">
-              <img src={f.src} alt={f.title} class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
-            </div>
-            <figcaption class="p-4 border-t border-[var(--color-rule)]">
-              <div class="text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent)] mb-1">{f.section}</div>
-              <div class="text-sm text-[var(--color-ink)] leading-snug">{f.title}</div>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-
-    <!-- Download CTAs -->
-    <div class="pt-8 border-t border-[var(--color-rule)]">
-      <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mb-4">Read the report</div>
-      <div class="grid md:grid-cols-3 gap-4">
+    <div class="grid sm:grid-cols-3 gap-4 max-w-4xl">
+      {downloads.map(d => (
         <a
-          href={asset('reports/saudi-vision-2030-exec-summary-en.pdf')}
+          href={d.href}
           target="_blank" rel="noopener"
-          class="group p-5 rounded border border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-paper)] hover:bg-[var(--color-brand)] transition flex flex-col gap-2"
+          class="group flex flex-col gap-1 p-5 rounded-lg border border-[var(--color-rule)] bg-white hover:border-[var(--color-ink)] hover:shadow-lg transition"
         >
-          <div class="flex items-center justify-between">
-            <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-accent-soft)]">Recommended</div>
-            <span aria-hidden="true">→</span>
-          </div>
-          <div class="font-semibold text-lg leading-tight">Executive Summary</div>
-          <div class="text-sm opacity-80">English · 7 pages · 0.2 MB · 5-min read</div>
+          <span class="text-base font-semibold text-[var(--color-ink)] flex items-center justify-between">
+            <T en={d.labelEn} zh={d.labelZh} />
+            <span class="text-[var(--color-accent)] group-hover:translate-y-0.5 transition-transform" aria-hidden="true">↓</span>
+          </span>
+          <span class="text-xs font-mono text-[var(--color-muted)]"><T en={d.metaEn} zh={d.metaZh} /></span>
         </a>
-        <a
-          href={asset('reports/saudi-vision-2030-report-en.pdf')}
-          target="_blank" rel="noopener"
-          class="group p-5 rounded border border-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition flex flex-col gap-2"
-        >
-          <div class="flex items-center justify-between">
-            <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] group-hover:text-[var(--color-accent-soft)]">Full report</div>
-            <span aria-hidden="true">→</span>
-          </div>
-          <div class="font-semibold text-lg leading-tight">Half Done, Half Deferred</div>
-          <div class="text-sm text-[var(--color-muted)] group-hover:text-current">English · 55 pages · 1.3 MB · deep dive</div>
-        </a>
-        <a
-          href={asset('reports/saudi-vision-2030-report.pdf')}
-          target="_blank" rel="noopener"
-          class="group p-5 rounded border border-[var(--color-rule)] text-[var(--color-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)] transition flex flex-col gap-2"
-        >
-          <div class="flex items-center justify-between">
-            <div class="text-xs font-mono uppercase tracking-wider">Chinese version</div>
-            <span aria-hidden="true">→</span>
-          </div>
-          <div class="font-semibold text-lg leading-tight">成功一半，推迟一半</div>
-          <div class="text-sm">中文版 · 50 页 · 7 MB · 完整原文</div>
-        </a>
-      </div>
+      ))}
     </div>
 
   </div>

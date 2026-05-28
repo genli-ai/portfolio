@@ -1,6 +1,12 @@
 ---
+import T from './T.astro';
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+const stats = [
+  { value: "3", en: "Skills", zh: "个 skill" },
+  { value: "MIT", en: "Open source", zh: "开源" },
+  { value: "v0.6", en: "Self-evolving", zh: "持续迭代" },
+];
 ---
 <section id="top" class="relative overflow-hidden">
   <!-- Subtle grid background -->
@@ -11,58 +17,51 @@ const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}
 
   <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-32">
     <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-6">
-      AI for Finance · MENA
+      <T en="Market Research · open-source plugin" zh="Market Research · 开源 plugin" />
     </div>
 
     <h1 class="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] mb-8">
-      I build AI-augmented<br />
-      <span class="text-[var(--color-brand)]">investment research</span><br />
-      workflows.
+      <T
+        en="I build Claude Skills that turn<br /><span class='text-[var(--color-brand)]'>research methodology</span><br />into reusable workflows."
+        zh="我把可用的投研方法论<br />做成可复用的<br /><span class='text-[var(--color-brand)]'>AI agent skills</span>。"
+      />
     </h1>
 
     <p class="max-w-2xl text-lg md:text-xl text-[var(--color-muted)] leading-relaxed mb-10">
-      I am Ligen — an analyst working at the intersection of <strong class="text-[var(--color-ink)] font-medium">macro / policy research</strong>
-      and <strong class="text-[var(--color-ink)] font-medium">applied AI</strong>. I package investment-research methodology
-      as reusable Claude skills, then prove them with full-length deliverables. Below is one such proof — a 15,000-word
-      Saudi Vision 2030 deep-dive built end-to-end with my own open-source workflow.
+      <T
+        en="I'm Gen — I design composable AI research workflows and ship them as open-source Claude Skills. The discipline of investment research — source provenance, three-state labeling, human checkpoints — encoded as procedures an LLM can run end-to-end, and proven on a real deliverable before release."
+        zh="Hi，我是 Gen。"
+      />
     </p>
 
     <div class="flex flex-wrap gap-4 items-center">
       <a
-        href="#case"
+        href={asset('#skills')}
         class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-ink)] text-[var(--color-paper)] rounded font-medium hover:bg-[var(--color-brand)] transition"
       >
-        Read the case study
+        <T en="Explore Market Research" zh="了解 Market Research plugin" />
         <span aria-hidden="true">→</span>
       </a>
       <a
-        href={asset('reports/saudi-vision-2030-exec-summary-en.pdf')}
+        href="https://github.com/reagan475614947/market-research-skills"
         target="_blank" rel="noopener"
         class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--color-ink)] text-[var(--color-ink)] rounded font-medium hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition"
       >
-        Exec summary (EN, 7 pages)
-        <span aria-hidden="true">↓</span>
+        <T en="Source on GitHub" zh="GitHub 源码" />
+        <span aria-hidden="true">→</span>
       </a>
     </div>
 
     <!-- Quick-fire stats -->
-    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-[var(--color-rule)] pt-10">
-      <div>
-        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">15k+</div>
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">Words written</div>
-      </div>
-      <div>
-        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">41</div>
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">Custom charts</div>
-      </div>
-      <div>
-        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">16</div>
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">KPIs benchmarked</div>
-      </div>
-      <div>
-        <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">3</div>
-        <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">Scenario models</div>
-      </div>
+    <div class="mt-20 grid grid-cols-3 gap-8 border-t border-[var(--color-rule)] pt-10">
+      {stats.map(s => (
+        <div>
+          <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">{s.value}</div>
+          <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">
+            <T en={s.en} zh={s.zh} />
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>

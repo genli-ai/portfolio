@@ -1,97 +1,169 @@
 ---
+import T from './T.astro';
+import Install from './Install.astro';
 const steps = [
   {
     n: "01",
-    title: "Hypothesis lock",
-    body: "Single-sentence research question, written before any search. Travels with the project file from day one — never re-derived from the draft.",
+    titleEn: "Hypothesis lock", titleZh: "锁定假设",
+    tagEn: "Human", tagZh: "人工",
+    bodyEn: "A single-sentence research question, fixed before any search begins. It travels with the project file from day one — never back-derived from the draft.",
+    bodyZh: "一句话写清研究问题，在动手检索之前就定下来。从第一天起跟着项目文件走，绝不事后从草稿里反推。",
   },
   {
     n: "02",
-    title: "Broad-spectrum search",
-    body: "Five source categories: official statistics, multilateral institutions (IMF / WB / IEA), peer central banks, sell-side investment banks, primary corporate filings. PDFs downloaded in full, not just abstracts.",
+    titleEn: "Broad-spectrum search", titleZh: "广谱检索",
+    bodyEn: "Five source categories at once: official statistics, multilateral institutions (IMF / World Bank / IEA), peer central banks, sell-side banks, primary corporate filings. PDFs downloaded in full, not just the abstract.",
+    bodyZh: "五类来源一起上：官方统计、多边机构（IMF／世行／IEA）、同业央行、卖方投行、公司原始披露。PDF 整篇下下来，不只看摘要。",
   },
   {
     n: "03",
-    title: "Outline + visual plan",
-    body: "Section structure approved by user before drafting. Each section's chart count and chart type planned alongside the prose argument.",
+    titleEn: "Outline + visual plan", titleZh: "提纲 + 配图规划",
+    tagEn: "Sign-off", tagZh: "人工确认",
+    bodyEn: "The user signs off on the section structure before any prose is written. How many charts each section gets, and of what type, is planned alongside the argument.",
+    bodyZh: "章节结构先给用户过目、确认了再动笔。每节配几张图、配什么类型，跟文字论证一起想清楚。",
   },
   {
     n: "04",
-    title: "Data extraction + chart production",
-    body: "CSV + Python script pair for every chart. chart_template.py enforces palette, fonts, label legibility. Title-number-must-match-data discipline.",
+    titleEn: "Data extraction + chart production", titleZh: "取数 + 出图",
+    bodyEn: "Every chart pairs a CSV with a Python script. chart_template.py enforces palette, fonts and label legibility. The number in the title must match the data on the chart.",
+    bodyZh: "每张图都对应一组 CSV 加一段 Python 脚本。chart_template.py 统一配色、字体和标签可读性。标题里的数字，必须和图上的数据对得上。",
   },
   {
     n: "05",
-    title: "Draft writing (one continuous pass)",
-    body: "Single-LLM end-to-end draft. Cite-as-you-write — never cite-after-draft. Filler words and self-narration grep'd out.",
+    titleEn: "Draft in one continuous pass", titleZh: "一气呵成写初稿",
+    bodyEn: "A single LLM writes end-to-end. Citations go in as you write, never bolted on afterward. Filler and self-narration are grep'd out.",
+    bodyZh: "单 LLM 从头写到尾。边写边标引用，绝不写完再补。废话和自说自话，用 grep 清掉。",
   },
   {
     n: "06",
-    title: "Self-critique (6 dimensions)",
-    body: "Facts / unit consistency / citation accuracy / cross-section coherence / argument flow / language register. Three rounds. Failures route back to step 5 surgically.",
+    titleEn: "Self-critique, 6 dimensions", titleZh: "自我批评，6 个维度",
+    tagEn: "Quality gate", tagZh: "质量门",
+    bodyEn: "Facts, unit consistency, citation accuracy, cross-section coherence, argument flow, language register — three rounds. Anything that fails routes surgically back to step 5.",
+    bodyZh: "事实、单位一致、引用准确、跨节连贯、论证流畅、语言风格，六个维度查三轮。不过关的，精准打回第 5 步。",
   },
   {
     n: "07",
-    title: "Independent verification",
-    body: "Every load-bearing number cross-checked via the verifying skill against whitelisted primary sources. Anything that fails verification gets the ⚠️ flag or gets cut.",
+    titleEn: "Independent verification", titleZh: "独立核验",
+    tagEn: "Quality gate", tagZh: "质量门",
+    bodyEn: "Every load-bearing number is cross-checked through the verifying skill against whitelisted primary sources. Whatever fails gets a ⚠️ flag or gets cut.",
+    bodyZh: "每个撑着结论的数字，都用 verifying skill 对着白名单里的原始来源交叉核对。核不过的，要么标 ⚠️，要么删掉。",
   },
   {
     n: "08",
-    title: "Final sign-off + derivations",
-    body: "User reads the full PDF, marks revisions, signs. Then derivations: WeChat-paginated md, HTML publication, Word docx.",
+    titleEn: "Final sign-off + derivations", titleZh: "定稿 sign-off + 派生",
+    tagEn: "Human", tagZh: "人工",
+    bodyEn: "The user reads the full PDF, marks revisions and signs off. Only then come the derivations: WeChat-paginated markdown, HTML publication, Word.",
+    bodyZh: "用户读完整篇 PDF、标好修改、签字确认。之后才派生：公众号分页 md、HTML 刊物、Word。",
   },
 ];
+
+const llms = [
+  {
+    name: "Claude",
+    en: "IB-grade English writing, structural skeletons, integration and end-to-end orchestration. The default model at every step.",
+    zh: "英文 IB 级写作、搭结构骨架、做整合、端到端编排——每一步的默认模型。",
+  },
+  {
+    name: "GPT-5",
+    en: "Numerical precision, unit-consistency critique, fact-checking and the red lines on language register. The only outside critic in step 6.",
+    zh: "盯数值精度、查单位一致、核事实、把语言风格的红线——第 6 步唯一的外部批评者。",
+  },
+  {
+    name: "DeepSeek",
+    en: "Chinese-polishing patterns, since distilled into a 6-point style guide that Claude now applies on its own — no longer called at runtime.",
+    zh: "中文润色的路数，现已提炼成 6 条风格指南，由 Claude 直接套用，运行时不再调用。",
+  },
+];
+
+const structureEn = `analyst-research/
+├── SKILL.md                  # trigger + mode routing
+├── references/
+│   ├── workflow_light.md     # 6 steps
+│   ├── workflow_medium.md    # 8 steps
+│   ├── workflow_heavy.md     # 11 steps
+│   └── report_style_spec.md  # visual production rules
+└── scripts/
+    ├── chart_template.py     # shared chart styling
+    └── publication-style-template.html`;
+
+const structureZh = `analyst-research/
+├── SKILL.md                  # 触发 + mode 分流
+├── references/
+│   ├── workflow_light.md     # 6 步
+│   ├── workflow_medium.md    # 8 步
+│   ├── workflow_heavy.md     # 11 步
+│   └── report_style_spec.md  # 视觉生产规范
+└── scripts/
+    ├── chart_template.py     # 统一图表样式
+    └── publication-style-template.html`;
 ---
 <section id="method" class="bg-[var(--color-paper)]">
   <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
 
     <div class="max-w-3xl mb-16">
-      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">Methodology · how it works</div>
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+        <T en="The 8-step workflow · where the rigor lives" zh="8 步工作流 · 严谨藏在哪" />
+      </div>
       <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
-        AI vibe coding,<br />with discipline.
+        <T en="AI vibe coding,<br />with discipline." zh="有纪律的<br />AI vibe coding。" />
       </h2>
       <p class="text-lg text-[var(--color-muted)] leading-relaxed">
-        I treat AI as a junior analyst — fast, broad-knowledge, untrained instinct.
-        My job is to design the workflow it runs through, and to catch its mistakes systematically before they reach the page.
-        Below is the 8-step skeleton at the heart of <span class="font-mono text-[var(--color-accent)]">analyst-research</span>'s
-        medium and heavy modes. Light mode is a 6-step compression of the same logic.
+        <T
+          en="I treat AI like a junior analyst: fast, broad-knowledge, untrained instinct. The skill's job is to design the track it runs on, and to catch its mistakes before they reach the page. The 8 steps below sit behind <span class='font-mono text-[var(--color-accent)]'>analyst-research</span>'s medium and heavy modes; light mode compresses the same logic into 6. The badges mark where a human decides, and where the quality gates are."
+          zh="我把 AI 当成一个初级分析师：快、知识面广、但直觉没经过训练。Skill 的任务，就是给它铺好跑的轨道，并在错误进入正文之前拦下来。下面这 8 步是 <span class='font-mono text-[var(--color-accent)]'>analyst-research</span> 的 medium 和 heavy 两档骨架，light 档把同样的逻辑压成 6 步。标签标出了哪里由人拍板、哪里是质量门。"
+        />
       </p>
     </div>
 
     <!-- Steps timeline -->
-    <ol class="space-y-2">
-      {steps.map((s, i) => (
+    <ol class="space-y-2 mb-20">
+      {steps.map((s) => (
         <li class="grid md:grid-cols-[80px_1fr] gap-4 md:gap-8 py-6 border-t border-[var(--color-rule)]">
           <div class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{s.n}</div>
           <div>
-            <h3 class="text-xl font-semibold mb-2">{s.title}</h3>
-            <p class="text-[var(--color-muted)] leading-relaxed">{s.body}</p>
+            <div class="flex flex-wrap items-center gap-3 mb-2">
+              <h3 class="text-xl font-semibold"><T en={s.titleEn} zh={s.titleZh} /></h3>
+              {s.tagEn && (
+                <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]">
+                  <T en={s.tagEn} zh={s.tagZh} />
+                </span>
+              )}
+            </div>
+            <p class="text-[var(--color-muted)] leading-relaxed"><T en={s.bodyEn} zh={s.bodyZh} /></p>
           </div>
         </li>
       ))}
     </ol>
 
-    <!-- LLM division of labor -->
-    <div class="mt-20 bg-[var(--color-paper-warm)] border border-[var(--color-rule)] rounded-lg p-6 md:p-10">
+    <!-- Project structure -->
+    <div class="mb-20">
       <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-3">
-        Multi-LLM division of labor (heavy mode, optional)
+        <T en="How the skill is organized" zh="这个 skill 怎么组织的" />
       </div>
-      <h3 class="text-2xl font-semibold mb-6">Different LLMs are good at different things.</h3>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div>
-          <div class="font-mono text-sm text-[var(--color-brand)] mb-2">Claude</div>
-          <p class="text-sm text-[var(--color-muted)] leading-relaxed">English-language IB-quality writing, structural skeletons, integration, end-to-end orchestration. Default model for every step.</p>
-        </div>
-        <div>
-          <div class="font-mono text-sm text-[var(--color-brand)] mb-2">GPT-5</div>
-          <p class="text-sm text-[var(--color-muted)] leading-relaxed">Numerical precision, unit-consistency critique, fact verification, language register red lines. Sole external critique voice in step 6.</p>
-        </div>
-        <div>
-          <div class="font-mono text-sm text-[var(--color-brand)] mb-2">DeepSeek</div>
-          <p class="text-sm text-[var(--color-muted)] leading-relaxed">Chinese-language polishing patterns. Distilled into a 6-pattern style guide and now applied by Claude solo — not invoked at runtime.</p>
-        </div>
+      <h3 class="text-2xl font-semibold mb-6"><T en="One trigger, three workflows, shared production tooling." zh="一个触发入口，三套工作流，共用一套生产工具。" /></h3>
+      <div class="bg-[var(--color-ink)] rounded-lg p-6 md:p-8 overflow-x-auto">
+        <pre class="font-mono text-xs md:text-sm text-white/80 leading-relaxed whitespace-pre"><T en={structureEn} zh={structureZh} /></pre>
       </div>
     </div>
+
+    <!-- LLM division of labor -->
+    <div class="bg-[var(--color-paper-warm)] border border-[var(--color-rule)] rounded-lg p-6 md:p-10 mb-12">
+      <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-3">
+        <T en="Multi-LLM division of labor (heavy mode, optional)" zh="多 LLM 分工（heavy mode，可选）" />
+      </div>
+      <h3 class="text-2xl font-semibold mb-6"><T en="Each model does the part it's best at." zh="每个模型只做自己最擅长的那一段。" /></h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        {llms.map(l => (
+          <div>
+            <div class="font-mono text-sm text-[var(--color-brand)] mb-2">{l.name}</div>
+            <p class="text-sm text-[var(--color-muted)] leading-relaxed"><T en={l.en} zh={l.zh} /></p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Install -->
+    <Install />
 
   </div>
 </section>

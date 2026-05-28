@@ -5,14 +5,14 @@ interface Props {
   description?: string;
 }
 const {
-  title = "Ligen · AI for Finance, MENA",
-  description = "Portfolio of Ligen — building AI-augmented investment research workflows. Saudi Vision 2030 deep-dive case study + open-source Claude skill (analyst-research)."
+  title = "Gen · Claude Skills for Investment Research",
+  description = "Portfolio of Gen — building open-source Claude Skills that turn investment-research methodology into reusable, rigorous workflows. analyst-research: a three-mode research workflow skill."
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -23,8 +23,27 @@ const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <title>{title}</title>
+    <script is:inline>
+      // Pre-paint: apply saved language before first render to avoid a flash.
+      (function () {
+        var saved = localStorage.getItem('lang');
+        var lang = saved === 'zh' ? 'zh' : 'en';
+        document.documentElement.dataset.lang = lang;
+        document.documentElement.lang = lang;
+      })();
+    </script>
   </head>
   <body class="bg-[var(--color-paper)] text-[var(--color-ink)]">
     <slot />
+    <script>
+      document.querySelectorAll('[data-lang-toggle]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const next = document.documentElement.dataset.lang === 'zh' ? 'en' : 'zh';
+          document.documentElement.dataset.lang = next;
+          document.documentElement.lang = next;
+          localStorage.setItem('lang', next);
+        });
+      });
+    </script>
   </body>
 </html>

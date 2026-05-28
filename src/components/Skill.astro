@@ -1,118 +1,133 @@
 ---
+import T from './T.astro';
 const modes = [
   {
     name: "light",
-    tagline: "5-page decision memo",
-    bullets: ["60-80 min, single LLM", "0 charts, pure footnote citations", "BLUF executive summary", "0 hard stops, 12-item grep self-check"],
-    use: "Exec brief · 1-hour decision support · internal memo",
+    taglineEn: "5-page decision memo",
+    taglineZh: "5 页决策 memo",
+    bullets: [
+      { en: "10-15 min, single LLM", zh: "10-15 分钟，单 LLM" },
+      { en: "0 charts, pure footnote citations", zh: "不带图，纯脚注引用" },
+      { en: "BLUF executive summary", zh: "结论先行的执行摘要" },
+      { en: "0 hard stops, 12-item grep self-check", zh: "无硬性停点，12 项 grep 自检" },
+    ],
+    useEn: "Exec brief · decision support · internal memo",
+    useZh: "执行简报 · 决策支持 · 内部 memo",
   },
   {
     name: "medium",
-    tagline: "10-15p topic analysis",
-    bullets: ["Half-day, 3-5 hours", "3-8 custom charts (chart_template shared)", "PDF + Word derivations", "1 sign-off checkpoint after draft"],
-    use: "Topic deep-dive · board memo with data · half-day analysis",
+    taglineEn: "10-15p topic analysis",
+    taglineZh: "10-15 页主题分析",
+    bullets: [
+      { en: "30-45 min, single LLM", zh: "30-45 分钟，单 LLM" },
+      { en: "3-8 custom charts (shared chart_template)", zh: "3-8 张定制图（共用 chart_template）" },
+      { en: "PDF + Word derivations", zh: "派生 PDF + Word" },
+      { en: "1 sign-off checkpoint after draft", zh: "draft 后留一个 sign-off 节点" },
+    ],
+    useEn: "Topic deep-dive · board memo with data · quick analysis",
+    useZh: "主题深挖 · 带数据的决策 memo · 快速分析",
     highlight: true,
   },
   {
     name: "heavy",
-    tagline: "Flagship 15k+ word report",
-    bullets: ["Days-to-weeks, multi-LLM optional", "20-35+ charts, full visual production stack", "PDF + Word + WeChat md + HTML publication", "3 sign-off checkpoints (outline / draft / final)"],
-    use: "Industry deep-dive · macro thesis · policy assessment · flagship investor publication",
+    taglineEn: "Flagship 15k+ word report",
+    taglineZh: "1.5 万字以上旗舰报告",
+    bullets: [
+      { en: "2-3 hours, multi-LLM optional", zh: "2-3 小时，可选多 LLM" },
+      { en: "20-35+ charts, full visual production stack", zh: "20-35+ 张图，完整视觉生产栈" },
+      { en: "PDF + Word + WeChat md + HTML publication", zh: "PDF + Word + 公众号 md + HTML 刊物" },
+      { en: "3 sign-off checkpoints (outline / draft / final)", zh: "3 个 sign-off 节点（outline / draft / 定稿）" },
+    ],
+    useEn: "Industry deep-dive · macro thesis · policy assessment · flagship publication",
+    useZh: "行业深度 · 宏观主题 · 政策评估 · 旗舰刊物",
   },
 ];
+
+const terminalEn = `<span class="text-[var(--color-accent-soft)]">analyst-research</span> · investment research workflow skill
+Pick a scope based on your project size:
+
+  <span class="text-white font-semibold">light</span>    5-page decision memo, 0 charts, 10-15 min
+           Single LLM. Pure markdown footnote citations.
+
+  <span class="text-white font-semibold">medium</span>   10-15p topic analysis, 3-8 charts, 30-45 min
+           PDF + Word. Sign-off checkpoint after draft.
+
+  <span class="text-white font-semibold">heavy</span>    Flagship report 15k+ words, 20-35+ charts, 2-3 hours
+           Multi-LLM optional. PDF + Word + WeChat + HTML.
+
+Which mode fits your project? <span class="text-[var(--color-accent-soft)]">_</span>`;
+
+const terminalZh = `<span class="text-[var(--color-accent-soft)]">analyst-research</span> · 投研工作流 skill
+按项目体量挑一档 scope：
+
+  <span class="text-white font-semibold">light</span>    5 页决策 memo，不带图，10-15 分钟
+           单 LLM，纯 markdown 脚注引用。
+
+  <span class="text-white font-semibold">medium</span>   10-15 页主题分析，3-8 张图，30-45 分钟
+           产出 PDF + Word，draft 后留一个 sign-off。
+
+  <span class="text-white font-semibold">heavy</span>    1.5 万字以上旗舰报告，20-35+ 张图，2-3 小时
+           可选多 LLM 协作，产出 PDF + Word + 公众号 + HTML。
+
+你的项目适合哪一档？ <span class="text-[var(--color-accent-soft)]">_</span>`;
 ---
 <section id="skill" class="bg-[var(--color-ink)] text-[var(--color-paper)]">
   <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
 
-    <div class="max-w-3xl mb-16">
+    <div class="max-w-3xl mb-12">
       <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
         Open-source · MIT · v0.6.0
       </div>
       <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
-        <span class="font-mono text-[var(--color-accent-soft)]">/analyst-research</span><br />
-        The skill behind the case study.
+        <span class="font-mono text-[var(--color-accent-soft)]">/analyst-research</span>
       </h2>
       <p class="text-lg text-white/70 leading-relaxed">
-        A Claude Skill that turns a single hypothesis into a publication-ready research report.
-        User picks scope at trigger time — light memo, medium brief, or heavy flagship — and the workflow
-        adapts. Battle-tested on the Saudi Vision 2030 deep-dive above.
+        <T
+          en="A Claude Skill that turns a single hypothesis into a publication-ready research report — three scope modes, one rigorous 8-step workflow."
+          zh="一个把单一假设做成可发表研究报告的 Claude Skill——三档 mode，一套严谨的 8 步工作流。"
+        />
       </p>
     </div>
 
-    <!-- Mode picker visualization -->
-    <div class="bg-[var(--color-ink-soft)] border border-white/10 rounded-lg p-6 md:p-8 mb-12 font-mono text-sm">
-      <div class="text-white/40 mb-4">$ /analyst-research</div>
-      <pre class="text-white/90 leading-relaxed whitespace-pre-wrap text-xs md:text-sm overflow-x-auto"><span class="text-[var(--color-accent-soft)]">analyst-research</span> · investment research workflow skill
-Pick a scope based on your project size:
-
-  <span class="text-white font-semibold">light</span>    5-page decision memo, 0 charts, 60-80 min
-           Single LLM. Pure markdown footnote citations.
-
-  <span class="text-white font-semibold">medium</span>   10-15p topic analysis, 3-8 charts, half-day
-           PDF + Word. Sign-off checkpoint after draft.
-
-  <span class="text-white font-semibold">heavy</span>    Flagship report 15k+ words, 20-35+ charts, days-weeks
-           Multi-LLM optional. PDF + Word + WeChat + HTML.
-
-Which mode fits your project? <span class="text-[var(--color-accent-soft)]">_</span></pre>
+    <!-- How to use -->
+    <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+      <T en="How to use it" zh="怎么用" />
     </div>
 
+    <!-- Mode picker visualization -->
+    <div class="bg-[var(--color-ink-soft)] border border-white/10 rounded-lg p-6 md:p-8 mb-6 font-mono text-sm">
+      <div class="text-white/40 mb-4">$ /analyst-research</div>
+      <pre class="text-white/90 leading-relaxed whitespace-pre-wrap text-xs md:text-sm overflow-x-auto"><T en={terminalEn} zh={terminalZh} /></pre>
+    </div>
+
+    <p class="text-sm text-white/50 mb-8 max-w-2xl">
+      <T
+        en="Type <span class='font-mono text-[var(--color-accent-soft)]'>/analyst-research</span> in Claude Code, answer the scope prompt, and hand over your hypothesis. The skill loads only the workflow for the mode you picked — no wasted context."
+        zh="在 Claude Code 里敲 <span class='font-mono text-[var(--color-accent-soft)]'>/analyst-research</span>，回答 scope 提示，把假设交给它就行。Skill 只会加载你选中那一档的工作流，不浪费 context。"
+      />
+    </p>
+
     <!-- Mode cards -->
-    <div class="grid md:grid-cols-3 gap-4 mb-16">
+    <div class="grid md:grid-cols-3 gap-4">
       {modes.map(m => (
         <div class={`p-6 rounded-lg border ${m.highlight ? "bg-[var(--color-brand)] border-[var(--color-brand-soft)]" : "bg-[var(--color-ink-soft)] border-white/10"}`}>
           <div class={`font-mono text-xs uppercase tracking-wider mb-3 ${m.highlight ? "text-[var(--color-accent-soft)]" : "text-white/40"}`}>
-            Mode · {m.name}
+            <T en="Mode" zh="模式" /> · {m.name}
           </div>
-          <div class="text-xl font-semibold mb-4 text-white">{m.tagline}</div>
+          <div class="text-xl font-semibold mb-4 text-white"><T en={m.taglineEn} zh={m.taglineZh} /></div>
           <ul class="space-y-2 mb-5">
             {m.bullets.map(b => (
               <li class="text-sm text-white/70 flex gap-2">
                 <span class="text-[var(--color-accent-soft)]">→</span>
-                <span>{b}</span>
+                <span><T en={b.en} zh={b.zh} /></span>
               </li>
             ))}
           </ul>
           <div class="text-xs text-white/50 pt-4 border-t border-white/10">
-            <span class="uppercase tracking-wider font-mono">Use for</span><br />{m.use}
+            <span class="uppercase tracking-wider font-mono"><T en="Use for" zh="适用于" /></span><br /><T en={m.useEn} zh={m.useZh} />
           </div>
         </div>
       ))}
-    </div>
-
-    <!-- What's inside -->
-    <div class="grid md:grid-cols-2 gap-12 mb-16">
-      <div>
-        <h3 class="text-2xl font-semibold mb-4">What's inside</h3>
-        <ul class="space-y-3 text-white/70">
-          <li><span class="font-mono text-[var(--color-accent-soft)]">references/workflow_*.md</span> — three mode-specific step-by-step procedures (6 / 8 / 11 steps).</li>
-          <li><span class="font-mono text-[var(--color-accent-soft)]">references/report_style_spec.md</span> — visual production rules: McKinsey blue-grey palette, Songti SC CJK, fig-number-vs-data alignment red lines.</li>
-          <li><span class="font-mono text-[var(--color-accent-soft)]">scripts/chart_template.py</span> — shared matplotlib styling. Every figure goes through it.</li>
-          <li><span class="font-mono text-[var(--color-accent-soft)]">scripts/publication-style-template.html</span> — HTML publication template for heavy-mode WeChat / web derivation.</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-2xl font-semibold mb-4">Design principles</h3>
-        <ul class="space-y-3 text-white/70">
-          <li><strong class="text-white">Source provenance is non-negotiable.</strong> Every number traces to a primary source or gets flagged ⚠️ and excluded from conclusions.</li>
-          <li><strong class="text-white">Three-state labeling.</strong> Fact / estimate / inference get distinct wording. Never collapsed.</li>
-          <li><strong class="text-white">AI is the copilot, not the pilot.</strong> Workflow has explicit human checkpoints. The hypothesis, the scope, the final sign-off — all human.</li>
-          <li><strong class="text-white">Self-evolving.</strong> Each project closes with a retrospective. Validated learnings promote back to the skill.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Install -->
-    <div class="bg-[var(--color-ink-soft)] border border-white/10 rounded-lg p-6 md:p-8">
-      <div class="text-xs font-mono uppercase tracking-wider text-white/40 mb-4">Install in Claude Code</div>
-      <div class="font-mono text-sm md:text-base text-white/90 space-y-2">
-        <div>$ /plugin marketplace add reagan475614947/market-research-skills</div>
-        <div>$ /plugin install market-research-skills@market-research-skills</div>
-      </div>
-      <div class="text-xs text-white/50 mt-4">
-        MIT licensed. Source on
-        <a href="https://github.com/reagan475614947/market-research-skills" class="text-[var(--color-accent-soft)] hover:underline" target="_blank" rel="noopener">GitHub →</a>
-      </div>
     </div>
 
   </div>

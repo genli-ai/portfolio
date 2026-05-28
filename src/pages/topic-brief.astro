@@ -1,0 +1,163 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Install from '../components/Install.astro';
+import T from '../components/T.astro';
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
+const subjects = ["中东 / Middle East", "半导体 / Semis", "AI 立法 / AI policy", "美联储 / Fed", "关键矿产 / Critical minerals"];
+
+const steps = [
+  {
+    n: "01",
+    titleEn: "Collect parameters", titleZh: "收集参数",
+    bodyEn: "One batched prompt: subject, time window (normalized to two ISO dates), source preference, author byline. If the trigger already named them, skip straight ahead.",
+    bodyZh: "一次性问清四件事：主题、时间窗（归一成两个 ISO 日期）、信息源偏好、作者署名。触发时已经给全了就直接跳过。",
+  },
+  {
+    n: "02",
+    titleEn: "Parallel material gathering", titleZh: "并行抓取材料",
+    bodyEn: "4–6 search queries, every one time-filtered (after:/before:), across the dimensions that fit the subject type — plus a 1–2 deep-read of the focus report's primary text.",
+    bodyZh: "4–6 次检索，每次都带时间过滤（after:/before:），按主题类型铺开维度；再深读 1–2 次焦点报告的原文。",
+  },
+  {
+    n: "03",
+    titleEn: "Direction check-in", titleZh: "方向确认",
+    tag: "⚠", tagEn: "Human gate", tagZh: "人工把关",
+    bodyEn: "Stop after gathering. Report the window, the proposed focus report and the 4 sub-sections — every candidate item tagged with its event date — and wait for sign-off. Skipping this causes 5,000-char rewrites.",
+    bodyZh: "抓完先停。把时间窗、拟定的焦点报告、四个子板块（每条候选都标事件日期）报给你确认，签了字再往下。跳过这一步，方向错了就是 5000 字重写。",
+  },
+  {
+    n: "04",
+    titleEn: "Compose the brief", titleZh: "成稿",
+    bodyEn: "Focus body 1,500–2,500 chars + 4 sub-sections × 3–4 dated items. No fabricated numbers — re-read and ask \"where did this come from?\" at every figure. In-window discipline enforced.",
+    bodyZh: "焦点正文 1500–2500 字 + 四个子板块 × 3–4 条带日期的条目。不编数字——写完逐个数字追问“这是哪来的”；每条都卡在时间窗内。",
+  },
+  {
+    n: "05",
+    titleEn: "Render & report", titleZh: "渲染并交付",
+    bodyEn: "render.py produces a self-contained HTML file (quotes auto-fixed) and opens it. Reports back file path, counts and a source-URL list — with a reminder that every number needs human review.",
+    bodyZh: "render.py 产出一个自包含 HTML（自动修中文引号）并打开。回报文件路径、字数 / 条数和分组源链接——并提醒：每个数字都要人工复核。",
+  },
+];
+
+const outputs = [
+  {
+    en: "<strong class='text-[var(--color-ink)]'>Self-contained HTML.</strong> A single file with blue \"TOPIC BRIEF\" branding — no external assets.",
+    zh: "<strong class='text-[var(--color-ink)]'>自包含 HTML。</strong>单个文件，蓝色 “TOPIC BRIEF” 品牌样式，不依赖外部资源。",
+  },
+  {
+    en: "<strong class='text-[var(--color-ink)]'>Built for WeChat.</strong> Styled for browser reading and one-click paste into the 微信公众号 editor.",
+    zh: "<strong class='text-[var(--color-ink)]'>为公众号而生。</strong>适合浏览器阅读，也能一键贴进微信公众号编辑器。",
+  },
+  {
+    en: "<strong class='text-[var(--color-ink)]'>Source-anchored.</strong> Every item carries an event date and a full source URL; no fabricated numbers.",
+    zh: "<strong class='text-[var(--color-ink)]'>源头可查。</strong>每条都带事件日期和完整源链接，不编数字。",
+  },
+];
+---
+<Base title="/topic-brief · Gen">
+  <Nav />
+  <main>
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+      <a href={asset('#skills')} class="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition inline-flex items-center gap-1.5">
+        <span aria-hidden="true">←</span> <T en="Market Research plugin" zh="Market Research plugin" />
+      </a>
+    </div>
+
+    <!-- Hero -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+            Open-source · MIT · Market Research
+          </div>
+          <h1 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+            <span class="font-mono text-[var(--color-accent-soft)]">/topic-brief</span>
+          </h1>
+          <p class="text-lg text-white/70 leading-relaxed">
+            <T
+              en="Turns a window of public news on any subject into a focused thematic briefing — and ships it as a self-contained HTML page built to paste straight into WeChat."
+              zh="把某个主题一段时间内的公开新闻，整理成一份聚焦的主题观察——并产出一个自包含 HTML 页面，能直接贴进公众号。"
+            />
+          </p>
+        </div>
+
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+          <T en="How to use it" zh="怎么用" />
+        </div>
+        <p class="text-sm text-white/60 max-w-2xl leading-relaxed mb-6">
+          <T
+            en="Type <span class='font-mono text-[var(--color-accent-soft)]'>/topic-brief</span> and name a subject — a region, industry, policy issue, institution or theme. One mandatory check-in midway keeps the direction right before any writing happens."
+            zh="输入 <span class='font-mono text-[var(--color-accent-soft)]'>/topic-brief</span>，给一个主题——地区、行业、政策、机构或某个题目。中途一次强制确认，动笔前先把方向定准。"
+          />
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {subjects.map(s => (
+            <span class="text-[11px] font-mono px-2.5 py-1 rounded-full border border-white/15 text-white/60">{s}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-step flow -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <div class="max-w-3xl mb-16">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+            <T en="The 5-step flow" zh="5 步流程" />
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
+            <T en="Gather first, confirm direction, then write." zh="先抓料，定方向，再动笔。" />
+          </h2>
+        </div>
+
+        <ol class="space-y-2">
+          {steps.map((s) => (
+            <li class="grid md:grid-cols-[80px_1fr] gap-4 md:gap-8 py-6 border-t border-[var(--color-rule)]">
+              <div class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{s.n}</div>
+              <div>
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 class="text-xl font-semibold"><T en={s.titleEn} zh={s.titleZh} /></h3>
+                  {s.tagEn && (
+                    <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]">
+                      {s.tag} <T en={s.tagEn} zh={s.tagZh} />
+                    </span>
+                  )}
+                </div>
+                <p class="text-[var(--color-muted)] leading-relaxed"><T en={s.bodyEn} zh={s.bodyZh} /></p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Output -->
+    <section class="bg-[var(--color-paper-warm)] border-y border-[var(--color-rule)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+          <T en="What comes out" zh="产出什么" />
+        </div>
+        <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-10">
+          <T en="One file, ready to publish." zh="一个文件，拿来就能发。" />
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {outputs.map(o => (
+            <p class="text-[var(--color-muted)] leading-relaxed"><T en={o.en} zh={o.zh} /></p>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <Install />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
