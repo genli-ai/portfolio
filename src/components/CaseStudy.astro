@@ -3,9 +3,8 @@ import T from './T.astro';
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 const downloads = [
-  { href: asset('reports/saudi-vision-2030-exec-summary-en.pdf'), labelEn: "Executive summary", labelZh: "执行摘要", metaEn: "English · 7 pages", metaZh: "英文 · 7 页" },
-  { href: asset('reports/saudi-vision-2030-report-en.pdf'), labelEn: "Full report (English)", labelZh: "完整英文报告", metaEn: "English · 55 pages", metaZh: "英文 · 55 页" },
-  { href: asset('reports/saudi-vision-2030-report.pdf'), labelEn: "Full report (Chinese)", labelZh: "完整中文报告", metaEn: "中文 · 50 页", metaZh: "中文 · 50 页" },
+  { href: asset('reports/gcc-swf-ai-pivot-en.html'), labelEn: "Read the report (English)", labelZh: "阅读报告（英文）", metaEn: "HTML · opens in browser", metaZh: "HTML · 浏览器打开" },
+  { href: asset('reports/gcc-swf-ai-pivot-zh.html'), labelEn: "Read the report (Chinese)", labelZh: "阅读报告（中文）", metaEn: "HTML · 浏览器打开", metaZh: "中文 · 浏览器打开" },
 ];
 ---
 <section id="case" class="bg-[var(--color-paper-warm)] border-y border-[var(--color-rule)]">
@@ -16,17 +15,17 @@ const downloads = [
         <T en="Proof · built with the skill" zh="实证 · 这个 skill 跑出来的" />
       </div>
       <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight mb-6">
-        <T en="A 15,000-word Saudi Vision 2030 deep-dive" zh="一份 1.5 万字的沙特愿景 2030 深度研究" /><span class="text-[var(--color-accent)]">.</span>
+        <T en="GCC sovereign wealth funds and the AI-capital pivot, 2023–2026" zh="海湾主权财富基金与 AI 资本转向，2023–2026" /><span class="text-[var(--color-accent)]">.</span>
       </h2>
       <p class="text-[var(--color-muted)] leading-relaxed">
         <T
-          en="Produced end-to-end in heavy mode, with every number traceable to a primary source (IMF, GASTAT, SAMA, MoF, PIF, IIF). The example library is being rebuilt — this one stands in as the current reference deliverable."
-          zh="整篇用 heavy mode 从头跑到尾，每个数字都追得到原始来源（IMF、GASTAT、SAMA、MoF、PIF、IIF）。示例库正在重做，这篇先当作目前的参考成稿。"
+          en="Produced end-to-end in heavy mode, with every number traceable to a primary source. Read the full report in your browser — English or Chinese."
+          zh="整篇用 heavy mode 从头跑到尾，每个数字都追得到原始来源。完整报告可直接在浏览器里阅读——中文或英文。"
         />
       </p>
     </div>
 
-    <div class="grid sm:grid-cols-3 gap-4 max-w-4xl">
+    <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
       {downloads.map(d => (
         <a
           href={d.href}
@@ -35,7 +34,7 @@ const downloads = [
         >
           <span class="text-base font-semibold text-[var(--color-ink)] flex items-center justify-between">
             <T en={d.labelEn} zh={d.labelZh} />
-            <span class="text-[var(--color-accent)] group-hover:translate-y-0.5 transition-transform" aria-hidden="true">↓</span>
+            <span class="text-[var(--color-accent)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">↗</span>
           </span>
           <span class="text-xs font-mono text-[var(--color-muted)]"><T en={d.metaEn} zh={d.metaZh} /></span>
         </a>
