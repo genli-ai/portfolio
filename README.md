@@ -90,8 +90,8 @@ Adapted from the report itself (`report_style_spec.md` McKinsey blue-grey palett
 
 ## License
 
-Site code: MIT. Report PDF and figures: © 2026 Ligen, all rights reserved.
+Site code: MIT. Report PDF and figures: © 2026 Gen, all rights reserved.
 
 ---
 
-Built with [Claude Code](https://claude.com/claude-code) and the open-source [analyst-research](https://github.com/reagan475614947/market-research-skills) workflow.
+Built with [Claude Code](https://claude.com/claude-code) and the open-source [analyst-research](https://github.com/genli-ai/market-research-skills) workflow.

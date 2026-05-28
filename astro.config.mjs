@@ -9,7 +9,7 @@ import tailwindcss from '@tailwindcss/vite';
 // If deploying to a user/org page (https://<user>.github.io) or a custom domain,
 //   leave BASE empty.
 
-const site = process.env.SITE || 'https://reagan475614947.github.io';
+const site = process.env.SITE || 'https://genli-ai.github.io';
 const base = process.env.BASE || undefined;
 
 // https://astro.build/config
