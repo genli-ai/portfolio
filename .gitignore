@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# personal CV — kept out of the public repo on purpose (link externally instead)
+public/cv.pdf
+
 # macOS-specific files
 .DS_Store
 

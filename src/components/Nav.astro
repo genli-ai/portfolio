@@ -4,37 +4,30 @@ const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 const home = asset('');
 const links = [
-  { href: asset('#skills'), en: "Skill", zh: "Skill" },
-  { href: asset('#case'), en: "Example", zh: "示例" },
-  { href: asset('#contact'), en: "Contact", zh: "联系" },
+  { href: asset('#insights'), en: "Insights", zh: "洞察" },
+  { href: asset('#skills'), en: "My AI skills", zh: "我的 AI 产品" },
+  { href: asset('#about'), en: "About", zh: "关于" },
 ];
 ---
-<nav class="sticky top-0 z-50 bg-[var(--color-paper)]/85 backdrop-blur border-b border-[var(--color-rule)]">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between text-sm">
-    <a href={home} class="font-mono font-semibold tracking-tight text-[var(--color-ink)]">
-      Gen<span class="text-[var(--color-accent)]">.</span>
+<nav class="sticky top-0 z-50 bg-[var(--color-paper)]/88 backdrop-blur border-b border-[var(--color-rule)]">
+  <div class="max-w-[920px] mx-auto px-7 h-[62px] flex items-center justify-between text-sm">
+    <a href={home} class="font-semibold tracking-tight text-[var(--color-ink)] text-[17px]">
+      Gen<span class="text-[var(--color-brand)]">.</span>
     </a>
-    <ul class="hidden md:flex gap-8 text-[var(--color-muted)]">
-      {links.map(l => (
-        <li><a href={l.href} class="hover:text-[var(--color-ink)] transition"><T en={l.en} zh={l.zh} /></a></li>
-      ))}
-    </ul>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-6">
+      <ul class="hidden md:flex gap-6 text-[var(--color-muted)]">
+        {links.map(l => (
+          <li><a href={l.href} class="hover:text-[var(--color-ink)] transition"><T en={l.en} zh={l.zh} /></a></li>
+        ))}
+      </ul>
       <button
         type="button"
         data-lang-toggle
         aria-label="Switch language"
-        class="text-xs font-mono px-3 py-1.5 rounded border border-[var(--color-rule)] text-[var(--color-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)] transition"
+        class="text-xs px-3 py-1.5 rounded-full border border-[var(--color-rule)] bg-white text-[var(--color-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)] transition"
       >
         <span class="lang-en">中文</span><span class="lang-zh">EN</span>
       </button>
-      <a
-        href="https://github.com/genli-ai/market-research-skills"
-        class="text-xs font-mono px-3 py-1.5 rounded border border-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition"
-        target="_blank" rel="noopener"
-      >
-        GitHub →
-      </a>
     </div>
   </div>
 </nav>

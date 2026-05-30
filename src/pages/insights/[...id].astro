@@ -1,0 +1,92 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import T from '../../components/T.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('research');
+  return entries.map((e) => ({ params: { id: e.id }, props: { entry: e } }));
+}
+
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+const { entry } = Astro.props;
+const d = entry.data;
+
+const typeLabel = {
+  flagship: { en: 'Flagship Report', zh: '旗舰报告' },
+  note: { en: 'Note', zh: '短评' },
+  drafting: { en: 'Drafting', zh: '撰写中' },
+}[d.type];
+const fmtDate = d.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+const reads = [
+  d.reportUrlEn && { href: asset(d.reportUrlEn), en: 'Read full report · EN', zh: '阅读全文 · 英文' },
+  d.reportUrlZh && { href: asset(d.reportUrlZh), en: 'Read full report · 中文', zh: '阅读全文 · 中文' },
+].filter(Boolean) as { href: string; en: string; zh: string }[];
+
+const pdfs = [
+  d.pdfUrlEn && { href: asset(d.pdfUrlEn), en: 'Download PDF · EN', zh: '下载 PDF · 英文' },
+  d.pdfUrlZh && { href: asset(d.pdfUrlZh), en: 'Download PDF · 中文', zh: '下载 PDF · 中文' },
+].filter(Boolean) as { href: string; en: string; zh: string }[];
+---
+<Base title={`${d.title} · Gen`} description={d.summary}>
+  <Nav />
+  <main class="border-b border-[var(--color-rule)]">
+    <article class="max-w-[760px] mx-auto px-7 pt-12 md:pt-16 pb-20 md:pb-24">
+
+      <a href={asset('#insights')} class="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition inline-flex items-center gap-1.5 mb-10">
+        <span aria-hidden="true">←</span> <T en="Insights" zh="洞察" />
+      </a>
+
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-[10.5px] font-semibold uppercase tracking-[0.1em] bg-[var(--color-brand)] text-white rounded px-2.5 py-1">
+          <T en={typeLabel.en} zh={typeLabel.zh} />
+        </span>
+        <span class="text-[13px] text-[var(--color-muted)]">{fmtDate}</span>
+      </div>
+
+      <h1 class="font-serif text-[30px] md:text-[40px] font-semibold leading-[1.12] tracking-tight mb-4">
+        <T en={d.title} zh={d.titleZh} />
+      </h1>
+      <p class="text-[15px] text-[var(--color-muted)] mb-10"><T en={d.summary} zh={d.summaryZh} /></p>
+
+      {(d.abstractEn || d.abstractZh) && (
+        <div class="mb-12">
+          <div class="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-accent)] mb-4">
+            <T en="Abstract" zh="摘要" />
+          </div>
+          <p class="prose-analyst text-[17px] md:text-[18px] text-[var(--color-ink-soft)]">
+            <T en={d.abstractEn ?? ''} zh={d.abstractZh ?? ''} />
+          </p>
+        </div>
+      )}
+
+      {(reads.length > 0 || pdfs.length > 0) && (
+        <div class="border-t border-[var(--color-rule)] pt-8">
+          <div class="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-muted)] mb-4">
+            <T en="Read & download" zh="阅读与下载" />
+          </div>
+          <div class="flex flex-wrap gap-3">
+            {reads.map((r) => (
+              <a href={r.href} target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[var(--color-brand)] text-white text-[14px] font-medium shadow-sm hover:bg-[var(--color-ink)] transition">
+                <T en={r.en} zh={r.zh} /> <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+            {pdfs.map((r) => (
+              <a href={r.href} target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-[var(--color-ink)] text-[var(--color-ink)] text-[14px] font-medium hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition">
+                <T en={r.en} zh={r.zh} /> <span aria-hidden="true">↓</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </article>
+  </main>
+  <Footer />
+</Base>

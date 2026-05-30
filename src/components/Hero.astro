@@ -1,67 +1,45 @@
 ---
 import T from './T.astro';
+import { getCollection } from 'astro:content';
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
-const stats = [
-  { value: "3", en: "Skills", zh: "个 skill" },
-  { value: "MIT", en: "Open source", zh: "开源" },
-  { value: "v0.6", en: "Self-evolving", zh: "持续迭代" },
-];
+
+// Primary CTA points at the flagship report's detail page.
+const flagship = (await getCollection('research')).find((e) => e.data.type === 'flagship');
+const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('#insights');
 ---
-<section id="top" class="relative overflow-hidden">
-  <!-- Subtle grid background -->
-  <div
-    class="absolute inset-0 opacity-[0.04] pointer-events-none"
-    style="background-image: linear-gradient(var(--color-ink) 1px, transparent 1px), linear-gradient(90deg, var(--color-ink) 1px, transparent 1px); background-size: 40px 40px;"
-  />
+<header id="top" class="relative overflow-hidden border-b border-[var(--color-rule)]">
+  <!-- soft warm glow, top-right -->
+  <div class="pointer-events-none absolute -top-32 -right-40 w-[520px] h-[520px] rounded-full opacity-[0.07]"
+       style="background: radial-gradient(circle, var(--color-brand) 0%, transparent 68%);"></div>
 
-  <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-32">
-    <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-6">
-      <T en="Market Research · open-source plugin" zh="Market Research · 开源 plugin" />
-    </div>
+  <div class="relative max-w-[920px] mx-auto px-7 pt-20 md:pt-28 pb-16 md:pb-20">
+    <span class="inline-flex items-center gap-2 text-[13px] text-[var(--color-brand)] border border-[var(--color-brand)]/35 bg-[var(--color-brand)]/[0.04] rounded-full px-3.5 py-1.5 mb-7">
+      <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] shadow-[0_0_0_3px_rgba(176,138,62,0.18)]" aria-hidden="true"></span>
+      <T en="Open to AI investment, strategy & product roles · UAE & KSA · 2026" zh="求职中 · AI 投资 / 战略 / 产品 · 阿联酋 & 沙特 · 2026" />
+    </span>
 
-    <h1 class="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] mb-8">
-      <T
-        en="I build Claude Skills that turn<br /><span class='text-[var(--color-brand)]'>research methodology</span><br />into reusable workflows."
-        zh="我把可用的投研方法论<br />做成可复用的<br /><span class='text-[var(--color-brand)]'>AI agent skills</span>"
-      />
+    <h1 class="font-serif font-semibold tracking-[-0.015em] leading-[1.07] text-[40px] md:text-[58px] max-w-[16ch] mb-6">
+      <T en="How AI is rewiring Gulf capital." zh="AI 正在重写海湾资本的逻辑。" />
     </h1>
 
-    <p class="max-w-2xl text-lg md:text-xl text-[var(--color-muted)] leading-relaxed mb-10">
+    <p class="text-lg md:text-xl text-[var(--color-ink-soft)] leading-relaxed max-w-[56ch] mb-9">
       <T
-        en="I'm Gen — I design composable AI research workflows and ship them as open-source Claude Skills. The discipline of investment research — source provenance, three-state labeling, human checkpoints — encoded as procedures an LLM can run end-to-end, and proven on a real deliverable before release."
-        zh="Hi，我是 Gen。"
+        en="I'm Gen — I analyze where Gulf capital is betting on AI, and I build AI products of my own. Investment & AI-application research, Middle East. NYU Abu Dhabi '26."
+        zh="我是 Gen——我分析海湾资本在 AI 上押注哪里，同时亲手打造自己的 AI 产品。中东 · 投资与 AI 应用研究。NYU Abu Dhabi '26。"
       />
     </p>
 
-    <div class="flex flex-wrap gap-4 items-center">
-      <a
-        href={asset('#skills')}
-        class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-ink)] text-[var(--color-paper)] rounded font-medium hover:bg-[var(--color-brand)] transition"
-      >
-        <T en="Explore market-research-skills" zh="了解 market-research-skills" />
-        <span aria-hidden="true">→</span>
+    <div class="flex flex-wrap gap-3.5">
+      <a href={flagshipHref}
+         class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[var(--color-brand)] text-white font-medium shadow-sm hover:bg-[var(--color-ink)] hover:shadow-md transition">
+        <T en="Read the flagship report" zh="读旗舰报告" />
+        <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
       </a>
-      <a
-        href="https://github.com/genli-ai/market-research-skills"
-        target="_blank" rel="noopener"
-        class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--color-ink)] text-[var(--color-ink)] rounded font-medium hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition"
-      >
-        <T en="Source on GitHub" zh="GitHub 源码" />
-        <span aria-hidden="true">→</span>
+      <a href={asset('#about')}
+         class="inline-flex items-center px-6 py-3 rounded-md border border-[var(--color-rule)] bg-white text-[var(--color-ink)] font-medium hover:border-[var(--color-ink)] transition">
+        <T en="Get in touch" zh="联系我" />
       </a>
-    </div>
-
-    <!-- Quick-fire stats -->
-    <div class="mt-20 grid grid-cols-3 gap-8 border-t border-[var(--color-rule)] pt-10">
-      {stats.map(s => (
-        <div>
-          <div class="text-3xl md:text-4xl font-semibold text-[var(--color-brand)]">{s.value}</div>
-          <div class="text-xs font-mono uppercase tracking-wider text-[var(--color-muted)] mt-1">
-            <T en={s.en} zh={s.zh} />
-          </div>
-        </div>
-      ))}
     </div>
   </div>
-</section>
+</header>

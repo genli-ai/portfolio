@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  /* System sans for body, Georgia/Songti serif for display headings. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Segoe UI", system-ui, sans-serif;
+  --font-serif: Georgia, "Songti SC", "Times New Roman", serif;
   --font-mono: "JetBrains Mono", "Menlo", "Monaco", monospace;
-  --font-serif: "Source Serif Pro", "Songti SC", Georgia, serif;
 
-  --color-ink: #0a0e1a;
-  --color-ink-soft: #1a1f2e;
-  --color-paper: #fafaf7;
-  --color-paper-warm: #f5f3ed;
-  --color-accent: #c97b4c;
-  --color-accent-soft: #e3a47a;
-  --color-brand: #1f3a5f;
-  --color-brand-soft: #4a6b8a;
-  --color-muted: #6e7681;
-  --color-rule: #e5e7ea;
+  /* Institutional research palette: warm paper, ink text, deep-green + copper-gold accents. */
+  --color-ink: #1a1d1a;
+  --color-ink-soft: #2a2e29;
+  --color-paper: #faf8f3;
+  --color-paper-warm: #f3eee3;
+  --color-accent: #b08a3e;       /* copper gold — secondary accent (kickers, dots) */
+  --color-accent-soft: #c8a460;
+  --color-brand: #2f5d50;        /* deep green — primary accent (display, links) */
+  --color-brand-soft: #4a7d6e;
+  --color-muted: #6b6f68;
+  --color-rule: #e4dfd4;
 }
 
 html {
@@ -25,7 +27,6 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv02";
   -webkit-font-smoothing: antialiased;
 }
 
