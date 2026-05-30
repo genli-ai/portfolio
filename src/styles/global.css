@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* System sans for body, Georgia/Songti serif for display headings. */
-  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Segoe UI", system-ui, sans-serif;
-  --font-serif: Georgia, "Songti SC", "Times New Roman", serif;
+  /* Distinctive type: Fraunces (high-contrast display serif) + Hanken Grotesk (refined body). */
+  --font-sans: "Hanken Grotesk Variable", -apple-system, "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", "Songti SC", Georgia, serif;
   --font-mono: "JetBrains Mono", "Menlo", "Monaco", monospace;
 
   /* Institutional research palette: warm paper, ink text, deep-green + copper-gold accents. */
   --color-ink: #1a1d1a;
-  --color-ink-soft: #2a2e29;
+  --color-ink-soft: #33372f;
   --color-paper: #faf8f3;
   --color-paper-warm: #f3eee3;
-  --color-accent: #b08a3e;       /* copper gold — secondary accent (kickers, dots) */
+  --color-accent: #b08a3e;       /* copper gold — sharp accent */
   --color-accent-soft: #c8a460;
-  --color-brand: #2f5d50;        /* deep green — primary accent (display, links) */
+  --color-brand: #1f4a3f;        /* deep green — dominant brand color */
+  --color-brand-deep: #163a30;
   --color-brand-soft: #4a7d6e;
   --color-muted: #6b6f68;
   --color-rule: #e4dfd4;
@@ -23,20 +24,55 @@ html {
   scroll-behavior: smooth;
   background: var(--color-paper);
   color: var(--color-ink);
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Fine paper grain — atmosphere, not noise. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Display headings: Fraunces, tuned for a luxe high-contrast look. */
+.font-serif {
+  font-variation-settings: "opsz" 100, "SOFT" 0, "WONK" 0;
 }
 
 .prose-analyst {
   font-family: var(--font-serif);
-  line-height: 1.7;
+  font-variation-settings: "opsz" 28, "SOFT" 4;
+  line-height: 1.65;
 }
 
-section[id] {
-  scroll-margin-top: 5rem;
+section[id] { scroll-margin-top: 5rem; }
+
+/* High-impact page load: staggered fade-up. */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
+.reveal-1 { animation-delay: 0.05s; }
+.reveal-2 { animation-delay: 0.16s; }
+.reveal-3 { animation-delay: 0.27s; }
+.reveal-4 { animation-delay: 0.38s; }
+.reveal-5 { animation-delay: 0.49s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; opacity: 1; }
+  html { scroll-behavior: auto; }
 }
 
 /* Bilingual toggle: show one language at a time. Default EN until JS sets data-lang. */

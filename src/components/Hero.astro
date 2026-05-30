@@ -4,40 +4,44 @@ import { getCollection } from 'astro:content';
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 
-// Primary CTA points at the flagship report's detail page.
 const flagship = (await getCollection('research')).find((e) => e.data.type === 'flagship');
-const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('#insights');
+const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('insights');
 ---
 <header id="top" class="relative overflow-hidden border-b border-[var(--color-rule)]">
-  <!-- soft warm glow, top-right -->
-  <div class="pointer-events-none absolute -top-32 -right-40 w-[520px] h-[520px] rounded-full opacity-[0.07]"
-       style="background: radial-gradient(circle, var(--color-brand) 0%, transparent 68%);"></div>
+  <!-- layered atmosphere: green glow + faint gold wash -->
+  <div class="pointer-events-none absolute -top-48 -right-56 w-[640px] h-[640px] rounded-full opacity-[0.07]"
+       style="background: radial-gradient(circle, var(--color-brand) 0%, transparent 70%);"></div>
+  <div class="pointer-events-none absolute -bottom-40 -left-40 w-[460px] h-[460px] rounded-full opacity-[0.06]"
+       style="background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);"></div>
 
-  <div class="relative max-w-[920px] mx-auto px-7 pt-20 md:pt-28 pb-16 md:pb-20">
-    <span class="inline-flex items-center gap-2 text-[13px] text-[var(--color-brand)] border border-[var(--color-brand)]/35 bg-[var(--color-brand)]/[0.04] rounded-full px-3.5 py-1.5 mb-7">
-      <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] shadow-[0_0_0_3px_rgba(176,138,62,0.18)]" aria-hidden="true"></span>
-      <T en="Open to AI investment, strategy & product roles · UAE & KSA · 2026" zh="求职中 · AI 投资 / 战略 / 产品 · 阿联酋 & 沙特 · 2026" />
+  <div class="relative max-w-[920px] mx-auto px-7 pt-24 md:pt-36 pb-20 md:pb-28">
+    <span class="reveal reveal-1 inline-flex items-center gap-2.5 text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-brand)] mb-9">
+      <span class="w-[7px] h-[7px] rounded-full bg-[var(--color-accent)] shadow-[0_0_0_3px_rgba(176,138,62,0.2)]" aria-hidden="true"></span>
+      <T en="Open to AI Investment, Strategy &amp; Product Growth · In the GCC" zh="求职意向 · AI 投资、战略与产品增长 · 海湾 GCC" />
     </span>
 
-    <h1 class="font-serif font-semibold tracking-[-0.015em] leading-[1.07] text-[40px] md:text-[58px] max-w-[16ch] mb-6">
-      <T en="How AI is rewiring Gulf capital." zh="AI 正在重写海湾资本的逻辑。" />
+    <h1 class="reveal reveal-2 font-serif font-medium tracking-[-0.025em] leading-[1.04] text-[37px] sm:text-[46px] lg:text-[52px] lg:whitespace-nowrap mb-8">
+      <T
+        en={'How AI is rewiring <span class="italic text-[var(--color-brand)]">Gulf&nbsp;capital.</span>'}
+        zh={'AI 正在重写<span class="text-[var(--color-brand)]">海湾资本</span>的逻辑。'}
+      />
     </h1>
 
-    <p class="text-lg md:text-xl text-[var(--color-ink-soft)] leading-relaxed max-w-[56ch] mb-9">
+    <p class="reveal reveal-3 text-lg md:text-[21px] text-[var(--color-ink-soft)] leading-[1.6] mb-10">
       <T
-        en="I'm Gen — I analyze where Gulf capital is betting on AI, and I build AI products of my own. Investment & AI-application research, Middle East. NYU Abu Dhabi '26."
-        zh="我是 Gen——我分析海湾资本在 AI 上押注哪里，同时亲手打造自己的 AI 产品。中东 · 投资与 AI 应用研究。NYU Abu Dhabi '26。"
+        en="I'm Gen, an NYU Abu Dhabi '26 MBA. I analyze where Gulf capital is betting on AI, and I build AI products of my own — for investment and AI-application research."
+        zh="我是 Gen，NYU Abu Dhabi '26 MBA。我分析海湾资本在 AI 上押注哪里，也亲手打造自己的 AI 产品——服务于投资与 AI 应用研究。"
       />
     </p>
 
-    <div class="flex flex-wrap gap-3.5">
+    <div class="reveal reveal-4 flex flex-wrap gap-3.5">
       <a href={flagshipHref}
-         class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[var(--color-brand)] text-white font-medium shadow-sm hover:bg-[var(--color-ink)] hover:shadow-md transition">
+         class="group inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[var(--color-brand)] text-white font-medium shadow-[0_10px_30px_-12px_rgba(31,74,63,0.6)] hover:bg-[var(--color-brand-deep)] hover:shadow-[0_14px_36px_-12px_rgba(31,74,63,0.7)] transition">
         <T en="Read the flagship report" zh="读旗舰报告" />
-        <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+        <span aria-hidden="true" class="group-hover:translate-x-0.5 transition-transform">→</span>
       </a>
       <a href={asset('#about')}
-         class="inline-flex items-center px-6 py-3 rounded-md border border-[var(--color-rule)] bg-white text-[var(--color-ink)] font-medium hover:border-[var(--color-ink)] transition">
+         class="inline-flex items-center px-6 py-3 rounded-md border border-[var(--color-ink)]/20 text-[var(--color-ink)] font-medium hover:border-[var(--color-ink)] hover:bg-[var(--color-ink)]/[0.03] transition">
         <T en="Get in touch" zh="联系我" />
       </a>
     </div>

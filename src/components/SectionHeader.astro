@@ -1,0 +1,26 @@
+---
+import T from './T.astro';
+interface Props {
+  num?: string;
+  kickerEn: string;
+  kickerZh: string;
+  titleEn: string;
+  titleZh: string;
+  dark?: boolean;
+}
+const { num, kickerEn, kickerZh, titleEn, titleZh, dark = false } = Astro.props;
+const numCls = dark ? 'text-[var(--color-accent-soft)]' : 'text-[var(--color-accent)]';
+const kickerCls = dark ? 'text-white/55' : 'text-[var(--color-muted)]';
+const ruleCls = dark ? 'bg-[var(--color-accent-soft)]/50' : 'bg-[var(--color-accent)]/45';
+const titleCls = dark ? 'text-white' : 'text-[var(--color-ink)]';
+---
+<div class="flex items-baseline gap-4 mb-5">
+  {num && <span class={`font-serif text-[34px] md:text-[40px] font-light leading-none ${numCls}`}>{num}</span>}
+  <span class="flex items-center gap-3 pb-1.5">
+    <span class={`h-px w-8 ${ruleCls}`}></span>
+    <span class={`text-[11px] font-semibold uppercase tracking-[0.22em] ${kickerCls}`}><T en={kickerEn} zh={kickerZh} /></span>
+  </span>
+</div>
+<h2 class={`font-serif text-[32px] md:text-[40px] font-medium tracking-[-0.02em] leading-[1.08] ${titleCls}`}>
+  <T en={titleEn} zh={titleZh} />
+</h2>

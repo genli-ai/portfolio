@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import T from '../components/T.astro';
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+const tools = [
+  {
+    name: "/analyst-research", href: asset('analyst-research'),
+    tagEn: "Hypothesis → publication-grade report", tagZh: "假设 → 出版级报告",
+    en: "Three scope modes over one rigorous 8-step workflow. Source provenance, three-state labeling and human checkpoints — encoded as procedures an LLM runs end to end, and proven on a real deliverable before release.",
+    zh: "三档 scope，一套严谨的 8 步工作流。来源可追溯、三态标注、人工节点——编码成 LLM 能端到端执行的流程，并在发布前用真实交付物验证过。",
+  },
+  {
+    name: "/verifying", href: asset('verifying'),
+    tagEn: "Every claim back to a primary source", tagZh: "每个论断回到一手来源",
+    en: "Fact-checks any statement against whitelisted primary sources only — catching out-of-context quotes, running one-level decomposition (Z = P × Q), and laying conflicting sources side by side.",
+    zh: "只拿白名单原始来源核对任何说法——抓断章取义、做一层拆解（Z = P × Q）、把多源冲突并排呈现。",
+  },
+  {
+    name: "/topic-brief", href: asset('topic-brief'),
+    tagEn: "Public signal → a shareable briefing", tagZh: "公开信号 → 可分享的简报",
+    en: "Turns public news into a focused topic briefing — a self-contained HTML page, styled for the browser and one-click paste into WeChat.",
+    zh: "把公开新闻做成聚焦的主题简报——独立 HTML 页面，适合浏览器看，也能一键贴进公众号。",
+  },
+];
+---
+<Base title="My AI skills · Gen" description="Open-source AI products Gen designed and shipped — analyst-research, verifying, topic-brief.">
+  <Nav />
+  <main>
+    <header class="relative overflow-hidden bg-[var(--color-brand-deep)] text-white">
+      <div class="pointer-events-none absolute -top-32 -right-44 w-[560px] h-[560px] rounded-full opacity-[0.13]"
+           style="background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);"></div>
+      <div class="relative max-w-[920px] mx-auto px-7 pt-20 md:pt-24 pb-12 md:pb-16">
+        <div class="reveal reveal-1 flex items-center gap-3 mb-6">
+          <span class="h-px w-8 bg-[var(--color-accent-soft)]/55"></span>
+          <span class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55"><T en="What I build" zh="我造过什么" /></span>
+        </div>
+        <h1 class="reveal reveal-2 font-serif text-[44px] md:text-[60px] font-medium tracking-[-0.025em] leading-[1.02] mb-6"><T en="My AI skills" zh="我的 AI 产品" /></h1>
+        <p class="reveal reveal-3 text-lg md:text-[21px] text-white/70 leading-[1.6]">
+          <T
+            en="Open-source AI products I designed and shipped. I don't just analyze AI — I build it, which is how I read it from the inside, not just the outside."
+            zh="我设计并发布的开源 AI 产品。我不只分析 AI——我亲手造它；正因为造过，我能从内部读懂它，而不只从外部观察。"
+          />
+        </p>
+      </div>
+    </header>
+
+    <section>
+      <div class="max-w-[920px] mx-auto px-7 py-14 md:py-20">
+        <div class="flex flex-col gap-4">
+          {tools.map((t) => (
+            <a href={t.href} class="group block bg-white border border-[var(--color-rule)] rounded-lg p-7 md:p-8 transition duration-300 hover:border-[var(--color-brand)]/40 hover:shadow-[0_20px_48px_-26px_rgba(31,74,63,0.4)]">
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
+                <div class="font-serif text-[21px] md:text-[24px] font-medium text-[var(--color-brand)]">{t.name}</div>
+                <div class="text-[13px] text-[var(--color-muted)]"><T en={t.tagEn} zh={t.tagZh} /></div>
+              </div>
+              <p class="text-[15px] text-[var(--color-ink-soft)] leading-relaxed mb-5"><T en={t.en} zh={t.zh} /></p>
+              <span class="inline-flex items-center gap-2 text-[14px] font-medium text-[var(--color-brand)]">
+                <T en="Open the workflow" zh="查看工作流" />
+                <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <p class="font-serif italic text-[var(--color-ink-soft)] text-[17px] md:text-[19px] mt-12 mb-5">
+          <T
+            en="Building these is how I read AI from the inside — not just the outside."
+            zh="正因为造过这些，我能从内部读懂 AI，而不只从外部观察。"
+          />
+        </p>
+        <a href="https://github.com/genli-ai/market-research-skills" target="_blank" rel="noopener"
+           class="group inline-flex items-center gap-2 text-[14px] font-medium text-[var(--color-brand)]">
+          <T en="All open-source on GitHub · MIT" zh="全部开源在 GitHub · MIT" />
+          <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

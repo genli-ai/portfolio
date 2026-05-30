@@ -1,5 +1,6 @@
 ---
 import T from './T.astro';
+import SectionHeader from './SectionHeader.astro';
 const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 const tools = [
@@ -14,42 +15,34 @@ const tools = [
     zh: "公开信号 → 干净可分享的简报。" },
 ];
 ---
-<section id="skills" class="bg-[var(--color-paper-warm)] border-b border-[var(--color-rule)]">
-  <div class="max-w-[920px] mx-auto px-7 py-20 md:py-24">
+<section id="skills" class="relative overflow-hidden bg-[var(--color-brand-deep)] text-white border-b border-black/10">
+  <div class="pointer-events-none absolute -top-32 -right-40 w-[520px] h-[520px] rounded-full opacity-[0.12]"
+       style="background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);"></div>
 
-    <div class="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--color-accent)] mb-3">
-      <T en="What I've built" zh="我造过什么" />
-    </div>
-    <h2 class="font-serif text-[30px] md:text-[34px] font-semibold tracking-tight mb-3"><T en="My AI skills" zh="我的 AI 产品" /></h2>
-    <p class="text-[15px] md:text-base text-[var(--color-muted)] leading-relaxed mb-9 max-w-[58ch]">
+  <div class="relative max-w-[920px] mx-auto px-7 py-20 md:py-28">
+    <SectionHeader dark num="02" kickerEn="What I build" kickerZh="我造过什么" titleEn="My AI skills" titleZh="我的 AI 产品" />
+    <p class="text-[15px] md:text-base text-white/65 leading-relaxed mt-4 mb-10">
       <T
         en="Open-source AI products I designed and shipped. I don't just analyze AI — I build it."
         zh="我设计并发布的开源 AI 产品。我不只分析 AI——我亲手造它。"
       />
     </p>
 
-    <div class="grid sm:grid-cols-3 gap-4 mb-7">
+    <div class="grid sm:grid-cols-3 gap-4 mb-9">
       {tools.map((t) => (
-        <a href={t.href} class="group flex flex-col bg-white border border-[var(--color-rule)] rounded-xl p-5 hover:border-[var(--color-brand)]/50 hover:shadow-[0_8px_30px_-12px_rgba(47,93,80,0.22)] transition">
-          <div class="font-serif text-[16px] text-[var(--color-brand)] mb-2">{t.name}</div>
-          <div class="text-[13.5px] text-[var(--color-ink-soft)] leading-relaxed flex-1"><T en={t.en} zh={t.zh} /></div>
-          <div class="mt-4 text-[13px] font-medium text-[var(--color-brand)] inline-flex items-center gap-1">
+        <a href={t.href} class="group flex flex-col rounded-lg p-5 bg-white/[0.04] border border-white/12 transition duration-300 hover:bg-white/[0.07] hover:border-[var(--color-accent-soft)]/60">
+          <div class="font-serif text-[16px] text-[var(--color-accent-soft)] mb-2">{t.name}</div>
+          <div class="text-[13.5px] text-white/70 leading-relaxed flex-1"><T en={t.en} zh={t.zh} /></div>
+          <div class="mt-4 text-[13px] font-medium text-white inline-flex items-center gap-1">
             <T en="Open" zh="查看" /> <span aria-hidden="true" class="group-hover:translate-x-0.5 transition-transform">→</span>
           </div>
         </a>
       ))}
     </div>
 
-    <p class="font-serif italic text-[var(--color-ink-soft)] text-[15px] md:text-base mb-5 max-w-[58ch]">
-      <T
-        en="Building these is how I read AI from the inside — not just the outside."
-        zh="正因为造过这些，我能从内部读懂 AI，而不只从外部观察。"
-      />
-    </p>
-    <a href="https://github.com/genli-ai/market-research-skills" target="_blank" rel="noopener"
-       class="text-[13px] text-[var(--color-muted)] hover:text-[var(--color-brand)] transition inline-flex items-center gap-1">
-      <T en="Source on GitHub" zh="GitHub 源码" /> <span aria-hidden="true">→</span>
+    <a href={asset('skills')} class="group inline-flex items-center gap-2 text-[14px] font-medium text-[var(--color-accent-soft)] hover:text-white transition-colors">
+      <T en="Explore my AI skills" zh="了解我的 AI 产品" />
+      <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform">→</span>
     </a>
-
   </div>
 </section>

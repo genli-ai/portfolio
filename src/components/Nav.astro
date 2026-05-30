@@ -4,27 +4,31 @@ const base = import.meta.env.BASE_URL;
 const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 const home = asset('');
 const links = [
-  { href: asset('#insights'), en: "Insights", zh: "洞察" },
-  { href: asset('#skills'), en: "My AI skills", zh: "我的 AI 产品" },
+  { href: asset('insights'), en: "Insights", zh: "洞察" },
+  { href: asset('skills'), en: "My AI skills", zh: "我的 AI 产品" },
   { href: asset('#about'), en: "About", zh: "关于" },
 ];
 ---
-<nav class="sticky top-0 z-50 bg-[var(--color-paper)]/88 backdrop-blur border-b border-[var(--color-rule)]">
-  <div class="max-w-[920px] mx-auto px-7 h-[62px] flex items-center justify-between text-sm">
-    <a href={home} class="font-semibold tracking-tight text-[var(--color-ink)] text-[17px]">
+<nav class="sticky top-0 z-40 bg-[var(--color-paper)]/80 backdrop-blur-md border-b border-[var(--color-rule)]">
+  <div class="max-w-[920px] mx-auto px-7 h-[66px] flex items-center justify-between">
+    <a href={home} class="font-serif font-semibold text-[22px] tracking-[-0.01em] text-[var(--color-ink)] leading-none">
       Gen<span class="text-[var(--color-brand)]">.</span>
     </a>
-    <div class="flex items-center gap-6">
-      <ul class="hidden md:flex gap-6 text-[var(--color-muted)]">
+    <div class="flex items-center gap-7">
+      <ul class="hidden md:flex gap-7 text-[13.5px] text-[var(--color-muted)]">
         {links.map(l => (
-          <li><a href={l.href} class="hover:text-[var(--color-ink)] transition"><T en={l.en} zh={l.zh} /></a></li>
+          <li>
+            <a href={l.href} class="relative py-1 hover:text-[var(--color-ink)] transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-[var(--color-accent)] hover:after:w-full after:transition-all after:duration-300">
+              <T en={l.en} zh={l.zh} />
+            </a>
+          </li>
         ))}
       </ul>
       <button
         type="button"
         data-lang-toggle
         aria-label="Switch language"
-        class="text-xs px-3 py-1.5 rounded-full border border-[var(--color-rule)] bg-white text-[var(--color-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)] transition"
+        class="text-[11px] font-medium uppercase tracking-[0.08em] px-3 py-1.5 rounded-full border border-[var(--color-rule)] bg-white/70 text-[var(--color-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)] transition"
       >
         <span class="lang-en">中文</span><span class="lang-zh">EN</span>
       </button>

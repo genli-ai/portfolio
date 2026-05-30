@@ -12,6 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.7",
     "tailwindcss": "^4.3.0"

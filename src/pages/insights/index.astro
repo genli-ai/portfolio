@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import T from '../../components/T.astro';
+import InsightsFeed from '../../components/InsightsFeed.astro';
+---
+<Base title="Insights · Gen" description="Insight reports on where Gulf capital is betting on AI — flagship deep-dives and shorter notes, every figure traced to a primary source.">
+  <Nav />
+  <main>
+    <header class="relative overflow-hidden border-b border-[var(--color-rule)]">
+      <div class="pointer-events-none absolute -top-40 -right-48 w-[520px] h-[520px] rounded-full opacity-[0.06]"
+           style="background: radial-gradient(circle, var(--color-brand) 0%, transparent 70%);"></div>
+      <div class="relative max-w-[920px] mx-auto px-7 pt-20 md:pt-24 pb-12 md:pb-16">
+        <div class="reveal reveal-1 flex items-center gap-3 mb-6">
+          <span class="h-px w-8 bg-[var(--color-accent)]/45"></span>
+          <span class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-muted)]"><T en="Research &amp; insight" zh="研究与洞察" /></span>
+        </div>
+        <h1 class="reveal reveal-2 font-serif text-[44px] md:text-[60px] font-medium tracking-[-0.025em] leading-[1.02] mb-6"><T en="Insights" zh="洞察" /></h1>
+        <p class="reveal reveal-3 text-lg md:text-[21px] text-[var(--color-ink-soft)] leading-[1.6]">
+          <T
+            en="Insight reports on where Gulf capital is betting on AI — flagship deep-dives and shorter notes. Every figure is traced to a primary source, with the same discipline I bring to investment research."
+            zh="关于海湾资本在 AI 上押注何处的洞察报告——旗舰深度与短评。每个数字都可追溯到一手来源，沿用我做投资研究时的同一套纪律。"
+          />
+        </p>
+      </div>
+    </header>
+
+    <section>
+      <div class="max-w-[920px] mx-auto px-7 py-14 md:py-20">
+        <InsightsFeed showNotes={true} />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
