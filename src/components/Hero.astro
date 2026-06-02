@@ -7,27 +7,27 @@ const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}
 const flagship = (await getCollection('research')).find((e) => e.data.type === 'flagship');
 const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('insights');
 ---
-<header id="top" class="relative overflow-hidden border-b border-[var(--color-rule)]">
-  <!-- layered atmosphere: green glow + faint gold wash -->
-  <div class="pointer-events-none absolute -top-48 -right-56 w-[640px] h-[640px] rounded-full opacity-[0.07]"
-       style="background: radial-gradient(circle, var(--color-brand) 0%, transparent 70%);"></div>
-  <div class="pointer-events-none absolute -bottom-40 -left-40 w-[460px] h-[460px] rounded-full opacity-[0.06]"
+<header id="top" class="relative overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper)] border-b border-white/10">
+  <!-- layered atmosphere on dark ground: emerald glow behind the headline + warm gold wash -->
+  <div class="pointer-events-none absolute -top-48 -right-56 w-[640px] h-[640px] rounded-full opacity-[0.16]"
+       style="background: radial-gradient(circle, var(--color-brand-soft) 0%, transparent 70%);"></div>
+  <div class="pointer-events-none absolute -bottom-40 -left-40 w-[460px] h-[460px] rounded-full opacity-[0.12]"
        style="background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);"></div>
 
   <div class="relative max-w-[920px] mx-auto px-7 pt-24 md:pt-36 pb-20 md:pb-28">
-    <span class="reveal reveal-1 inline-flex items-center gap-2.5 text-[12.5px] sm:text-[13.5px] font-semibold uppercase tracking-[0.16em] text-[var(--color-brand)] mb-9">
+    <span class="reveal reveal-1 inline-flex items-center gap-2.5 text-[12.5px] sm:text-[13.5px] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-soft)] mb-9">
       <span class="w-[7px] h-[7px] rounded-full bg-[var(--color-accent)] shadow-[0_0_0_3px_rgba(176,138,62,0.2)]" aria-hidden="true"></span>
       <T en="Open to AI Investment, Strategy &amp; Product Growth · In the GCC" zh="求职意向 · AI 投资、战略与产品增长 · 海湾 GCC" />
     </span>
 
-    <h1 class="reveal reveal-2 font-serif font-medium tracking-[-0.025em] leading-[1.04] text-[37px] sm:text-[46px] lg:text-[52px] lg:whitespace-nowrap mb-8">
+    <h1 class="reveal reveal-2 font-serif font-medium tracking-[-0.025em] leading-[1.04] text-[37px] sm:text-[46px] lg:text-[52px] lg:whitespace-nowrap mb-8 text-[var(--color-paper)]">
       <T
-        en={'How AI is rewiring <span class="italic text-[var(--color-brand)]">Gulf&nbsp;capital.</span>'}
-        zh={'AI 正在重写<span class="text-[var(--color-brand)]">海湾资本</span>的逻辑。'}
+        en={'How AI is rewiring <span class="italic text-[var(--color-accent-soft)]">Gulf&nbsp;capital.</span>'}
+        zh={'AI 正在重写<span class="text-[var(--color-accent-soft)]">海湾资本</span>的逻辑。'}
       />
     </h1>
 
-    <p class="reveal reveal-3 text-lg md:text-[21px] text-[var(--color-ink-soft)] leading-[1.6] mb-10">
+    <p class="reveal reveal-3 text-lg md:text-[21px] text-white/70 leading-[1.6] mb-10">
       <T
         en="I'm Gen, an NYU Abu Dhabi '26 MBA. I analyze where Gulf capital is betting on AI, and I build AI products of my own — for investment and AI-application research."
         zh="我是 Gen，NYU Abu Dhabi '26 MBA。我分析海湾资本在 AI 上押注哪里，也亲手打造自己的 AI 产品——服务于投资与 AI 应用研究。"
@@ -41,7 +41,7 @@ const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('insigh
         <span aria-hidden="true" class="group-hover:translate-x-0.5 transition-transform">→</span>
       </a>
       <a href={asset('#about')}
-         class="inline-flex items-center px-6 py-3 rounded-md border border-[var(--color-ink)]/20 text-[var(--color-ink)] font-medium hover:border-[var(--color-ink)] hover:bg-[var(--color-ink)]/[0.03] transition">
+         class="inline-flex items-center px-6 py-3 rounded-md border border-white/25 text-[var(--color-paper)] font-medium hover:border-white hover:bg-white/[0.06] transition">
         <T en="Get in touch" zh="联系我" />
       </a>
     </div>
