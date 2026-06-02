@@ -7,8 +7,8 @@ const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}
 const flagship = (await getCollection('research')).find((e) => e.data.type === 'flagship');
 const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('insights');
 ---
-<header id="top" class="relative overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper)] border-b border-white/10">
-  <!-- layered atmosphere on dark ground: emerald glow behind the headline + warm gold wash -->
+<header id="top" class="relative overflow-hidden bg-[var(--color-brand-deep)] text-[var(--color-paper)] border-b border-black/10">
+  <!-- layered atmosphere on deep-green ground: lighter emerald glow behind the headline + warm gold wash -->
   <div class="pointer-events-none absolute -top-48 -right-56 w-[640px] h-[640px] rounded-full opacity-[0.16]"
        style="background: radial-gradient(circle, var(--color-brand-soft) 0%, transparent 70%);"></div>
   <div class="pointer-events-none absolute -bottom-40 -left-40 w-[460px] h-[460px] rounded-full opacity-[0.12]"
@@ -36,7 +36,7 @@ const flagshipHref = flagship ? asset(`insights/${flagship.id}`) : asset('insigh
 
     <div class="reveal reveal-4 flex flex-wrap gap-3.5">
       <a href={flagshipHref}
-         class="group inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[var(--color-brand)] text-white font-medium shadow-[0_10px_30px_-12px_rgba(31,74,63,0.6)] hover:bg-[var(--color-brand-deep)] hover:shadow-[0_14px_36px_-12px_rgba(31,74,63,0.7)] transition">
+         class="group inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[var(--color-accent)] text-[var(--color-ink)] font-medium shadow-[0_10px_30px_-12px_rgba(176,138,62,0.7)] hover:bg-[var(--color-accent-soft)] hover:shadow-[0_14px_36px_-12px_rgba(176,138,62,0.85)] transition">
         <T en="Read the flagship report" zh="读旗舰报告" />
         <span aria-hidden="true" class="group-hover:translate-x-0.5 transition-transform">→</span>
       </a>
