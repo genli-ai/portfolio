@@ -13,6 +13,9 @@ const tools = [
   { name: "/topic-brief", href: asset('topic-brief'),
     en: "Public signal → a clean, shareable briefing.",
     zh: "公开信号 → 干净可分享的简报。" },
+  { name: "/local-vault", href: asset('local-vault'),
+    en: "Your files → a clean Markdown vault, answered with discipline.",
+    zh: "你的文件 → 干净的 Markdown 库，以检索纪律作答。" },
 ];
 ---
 <section id="skills" class="relative overflow-hidden bg-[var(--color-brand-deep)] text-white border-b border-black/10">
@@ -28,7 +31,7 @@ const tools = [
       />
     </p>
 
-    <div class="grid sm:grid-cols-3 gap-4 mb-9">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-9">
       {tools.map((t) => (
         <a href={t.href} class="group flex flex-col rounded-lg p-5 bg-white/[0.04] border border-white/12 transition duration-300 hover:bg-white/[0.07] hover:border-[var(--color-accent-soft)]/60">
           <div class="font-serif text-[16px] text-[var(--color-accent-soft)] mb-2">{t.name}</div>

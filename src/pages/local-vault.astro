@@ -1,0 +1,179 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Install from '../components/Install.astro';
+import T from '../components/T.astro';
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
+const formats = ["PDF", "Word", "PowerPoint", "Excel", "CSV", "Images", "HTML", "Markdown", "JSON / YAML", "Code"];
+
+const functions = [
+  {
+    n: "01",
+    tagEn: "Convert", tagZh: "转换",
+    titleEn: "Raw files → a clean Markdown vault", titleZh: "原始文件 → 干净的 Markdown 库",
+    bodyEn: "PDFs, Office docs, images and code become clean Markdown with retrieval-friendly frontmatter. Local-first — pandoc, python-pptx, openpyxl, pymupdf4llm — with cloud OCR only as a fallback when a file resists local extraction.",
+    bodyZh: "PDF、Office 文档、图片和代码，转成带检索友好 frontmatter 的干净 Markdown。本地优先——pandoc、python-pptx、openpyxl、pymupdf4llm——只有当某个文件本地抽取不出来时，才退回云端 OCR 兜底。",
+  },
+  {
+    n: "02",
+    tagEn: "Query", tagZh: "查询",
+    titleEn: "Answer questions over the vault", titleZh: "在资料库上回答问题",
+    bodyEn: "Ask anything across the vault and get answers with retrieval discipline — coverage self-monitored, missing or lossy content flagged rather than glossed over, and Maps-of-Content proposed to organize what's there.",
+    bodyZh: "在整个资料库上随便问，回答带检索纪律——自检覆盖率，缺失或有损的内容会被标出来而不是糊弄过去，并提出内容地图（MOC）帮你梳理已有材料。",
+  },
+];
+
+const discipline = [
+  {
+    en: "<strong class='text-white'>Local-first, cloud as fallback.</strong> Everything is extracted on your machine; cloud OCR is only invoked when a file resists local processing.",
+    zh: "<strong class='text-white'>本地优先，云端兜底。</strong>一切都在你本机抽取；只有本地处理不了的文件，才调用云端 OCR。",
+  },
+  {
+    en: "<strong class='text-white'>Retrieval-friendly frontmatter.</strong> Every converted file carries structured metadata, so the vault stays searchable instead of becoming a pile of loose text.",
+    zh: "<strong class='text-white'>检索友好的 frontmatter。</strong>每个转换后的文件都带结构化元数据，资料库始终可检索，而不是一堆散落的文本。",
+  },
+  {
+    en: "<strong class='text-white'>Coverage self-monitored.</strong> When answering, the skill tracks how much of the vault it actually read — and tells you when an answer rests on thin coverage.",
+    zh: "<strong class='text-white'>覆盖率自检。</strong>作答时会盯住自己究竟读了资料库的多少——覆盖太薄时主动告诉你，而不是装作读全了。",
+  },
+  {
+    en: "<strong class='text-white'>Missing / lossy content flagged.</strong> Gaps and degraded conversions are surfaced, never quietly glossed over.",
+    zh: "<strong class='text-white'>缺失 / 有损内容会标出。</strong>缺口和转换降级都会被点出来，绝不悄悄糊弄过去。",
+  },
+  {
+    en: "<strong class='text-white'>Maps-of-Content proposed.</strong> The skill suggests MOCs to give your growing vault a navigable structure.",
+    zh: "<strong class='text-white'>提出内容地图（MOC）。</strong>为不断变大的资料库建议 MOC，给它一个可导航的结构。",
+  },
+];
+
+const toolchain = [
+  { tool: "pandoc", en: "Word · HTML · Markdown", zh: "Word · HTML · Markdown" },
+  { tool: "python-pptx", en: "PowerPoint slides", zh: "PowerPoint 幻灯片" },
+  { tool: "openpyxl", en: "Excel · spreadsheets", zh: "Excel · 表格" },
+  { tool: "pymupdf4llm", en: "PDF text & layout", zh: "PDF 文本与版式" },
+  { tool: "MinerU", en: "Cloud OCR — fallback only", zh: "云端 OCR——仅兜底" },
+];
+---
+<Base title="/local-vault · Gen" description="Build and query a local Markdown knowledge base — convert PDFs, Office docs, images and code into clean Markdown, then answer questions over the vault with retrieval discipline.">
+  <Nav />
+  <main>
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+      <a href={asset('#skills')} class="text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)] transition inline-flex items-center gap-1.5">
+        <span aria-hidden="true">←</span> <T en="Market Research plugin" zh="Market Research plugin" />
+      </a>
+    </div>
+
+    <!-- Hero -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+            Open-source · MIT · Market Research
+          </div>
+          <h1 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-6">
+            <span class="font-mono text-[var(--color-accent-soft)]">/local-vault</span>
+          </h1>
+          <p class="text-lg text-white/70 leading-relaxed">
+            <T
+              en="Turns a folder of messy files into a clean, local Markdown knowledge base — then answers questions over it with an analyst's retrieval discipline. Your documents stay on your machine; AI reads them well."
+              zh="把一堆杂乱文件，整理成一个干净的、本地的 Markdown 知识库——再用分析师的检索纪律在上面回答问题。你的文档留在本机，AI 也能读得明白。"
+            />
+          </p>
+        </div>
+
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+          <T en="How to use it" zh="怎么用" />
+        </div>
+        <p class="text-sm text-white/60 max-w-2xl leading-relaxed mb-6">
+          <T
+            en="Type <span class='font-mono text-[var(--color-accent-soft)]'>/local-vault</span>, or say things like &quot;convert these files to markdown for AI&quot;, &quot;整理我的资料库&quot;, &quot;本地知识库&quot;, or &quot;这个主题我的资料里怎么说&quot;. Point it at a folder to build the vault, then just ask."
+            zh="输入 <span class='font-mono text-[var(--color-accent-soft)]'>/local-vault</span>，或者直接说“把这些文件转成 md 给 AI 读”“整理我的资料库”“本地知识库”“这个主题我的资料里怎么说”。指给它一个文件夹建库，然后开口问就行。"
+          />
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {formats.map(f => (
+            <span class="text-[11px] font-mono px-2.5 py-1 rounded-full border border-white/15 text-white/60">{f}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Two functions -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <div class="max-w-3xl mb-16">
+          <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-4">
+            <T en="Two functions, one skill" zh="一个 skill，两件事" />
+          </div>
+          <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
+            <T en="Convert your files in. Ask questions out." zh="把文件转进来，再把问题问出去。" />
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          {functions.map((f) => (
+            <div class="bg-[var(--color-paper-warm)] border border-[var(--color-rule)] rounded-lg p-7 md:p-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{f.n}</span>
+                <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]">
+                  <T en={f.tagEn} zh={f.tagZh} />
+                </span>
+              </div>
+              <h3 class="text-xl font-semibold mb-3"><T en={f.titleEn} zh={f.titleZh} /></h3>
+              <p class="text-[var(--color-muted)] leading-relaxed"><T en={f.bodyEn} zh={f.bodyZh} /></p>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-sm text-[var(--color-muted)] leading-relaxed mt-8 max-w-2xl">
+          <T
+            en="Not for one-off web research, or a single document you can just read directly — this earns its keep on a folder of files you'll return to."
+            zh="不适合一次性的网络检索，也不适合一份你直接读就行的单一文档——它的价值，在于一个你会反复回来翻的文件夹。"
+          />
+        </p>
+      </div>
+    </section>
+
+    <!-- Discipline + toolchain -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+              <T en="Retrieval discipline" zh="检索纪律" />
+            </div>
+            <ul class="space-y-3 text-white/70">
+              {discipline.map(d => (
+                <li><T en={d.en} zh={d.zh} /></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-4">
+              <T en="Built on" zh="底层工具" />
+            </div>
+            <ul class="space-y-2">
+              {toolchain.map(t => (
+                <li class="flex items-baseline gap-3 text-white/80 text-sm">
+                  <span class="font-mono text-[var(--color-accent-soft)] w-28 shrink-0">{t.tool}</span>
+                  <span class="text-white/55"><T en={t.en} zh={t.zh} /></span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+        <Install />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

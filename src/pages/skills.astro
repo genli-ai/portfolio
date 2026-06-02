@@ -24,9 +24,15 @@ const tools = [
     en: "Turns public news into a focused topic briefing — a self-contained HTML page, styled for the browser and one-click paste into WeChat.",
     zh: "把公开新闻做成聚焦的主题简报——独立 HTML 页面，适合浏览器看，也能一键贴进公众号。",
   },
+  {
+    name: "/local-vault", href: asset('local-vault'),
+    tagEn: "Your files → a queryable Markdown vault", tagZh: "你的文件 → 可检索的 Markdown 库",
+    en: "Two functions in one skill: convert PDFs, Office docs, images and code into clean Markdown with retrieval-friendly frontmatter (local-first, cloud OCR only as fallback) — then answer questions over the vault with coverage self-checks and Maps-of-Content.",
+    zh: "一个 skill 两件事：把 PDF、Office 文档、图片和代码转成带检索友好 frontmatter 的干净 Markdown（本地优先，云端 OCR 仅兜底）——再以覆盖自检和内容地图（MOC）在资料库上作答。",
+  },
 ];
 ---
-<Base title="My AI skills · Gen" description="Open-source AI products Gen designed and shipped — analyst-research, verifying, topic-brief.">
+<Base title="My AI skills · Gen" description="Open-source AI products Gen designed and shipped — analyst-research, verifying, topic-brief, local-vault.">
   <Nav />
   <main>
     <header class="relative overflow-hidden bg-[var(--color-brand-deep)] text-white">
