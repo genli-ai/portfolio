@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import T from '../components/T.astro';
+const base = import.meta.env.BASE_URL;
+const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
+const gestures = [
+  {
+    n: "01",
+    titleEn: "Tap — speech becomes text", titleZh: "轻点——说话就是打字",
+    bodyEn: "Tap the hotkey, speak, tap again. Clean, punctuated text lands at your cursor in any app — chat, docs, browser. Recognition runs 100% on-device; audio never leaves your machine.",
+    bodyZh: "轻点快捷键，开口说，再点一下——带标点的整洁文字直接落在任何应用的光标处：微信、文档、浏览器。识别 100% 在本机运行，录音绝不上传。",
+  },
+  {
+    n: "02",
+    titleEn: "Hold — speech becomes an AI command", titleZh: "按住——说话就是指挥 AI",
+    bodyEn: "Hold the same key and talk to AI where you work: select text and say \"make it formal\" or \"translate this\" — it's rewritten in place. Say \"reply to him: agree, but push to next week\" — a ready-to-send draft lands on your clipboard.",
+    bodyZh: "按住同一个键，在你工作的地方直接对 AI 说话：选中文字说「改得正式点」「翻译成英文」——原地改写；说「帮我回复他：同意，但推到下周」——可直接发送的草稿落到剪贴板。",
+  },
+];
+
+const features = [
+  {
+    en: "<strong>100% on-device recognition.</strong> Qwen3-ASR on Mac (MLX / Metal), SenseVoice on Windows (sherpa-onnx) — ~30 languages, strong Chinese–English mixed dictation.",
+    zh: "<strong>识别 100% 本地运行。</strong>Mac 用 Qwen3-ASR（MLX/Metal），Windows 用 SenseVoice（sherpa-onnx）——约 30 种语言，中英混说尤其强。",
+  },
+  {
+    en: "<strong>Adaptive AI polish.</strong> Short phrases get light cleanup; long rambling speech is restructured into ready-to-use writing. Grammar correction is a baseline, in Chinese and English alike.",
+    zh: "<strong>自适应 AI 润色。</strong>短句轻清理；长段混乱口述重组为可直接使用的成文。语法修正是基础标准，中英文一视同仁。",
+  },
+  {
+    en: "<strong>Intent-inferred commands.</strong> No magic words: the model decides from what you say whether to rewrite the selection, draft a reply, or write something new.",
+    zh: "<strong>指令意图由模型自判。</strong>没有固定咒语：改写选区、代拟回复、还是写新内容，由你说的话决定。",
+  },
+  {
+    en: "<strong>Hard vocabulary replacement.</strong> Exact homophones that defeat every ASR (杰文 vs 捷文) are fixed deterministically with a <code>wrong=right</code> rule — zero latency, no model.",
+    zh: "<strong>词汇表硬替换。</strong>任何识别引擎都救不了的同音专名（杰文/捷文），用一条 <code>错写=正写</code> 规则确定性纠正——零延迟、不靠模型。",
+  },
+  {
+    en: "<strong>Bring your own model.</strong> GPT or DeepSeek, any OpenAI-compatible endpoint; keys live in the OS keychain. Without a key it still works fully offline as a dictation tool.",
+    zh: "<strong>模型自带。</strong>GPT 或 DeepSeek，任何 OpenAI 兼容接口；Key 存系统钥匙串。不配 Key 也能当纯本地听写工具用。",
+  },
+  {
+    en: "<strong>One version line, in-app updates.</strong> Mac and Windows ship together; a tag push auto-builds the Windows release, and users upgrade with one click from the About page.",
+    zh: "<strong>双平台统一版号、应用内更新。</strong>Mac 与 Windows 同步发布；打一个 tag 自动构建 Windows 包，用户在「关于」页一键升级。",
+  },
+];
+
+const story = [
+  {
+    en: "I dictate constantly — and every tool I tried either uploaded my voice, mangled Chinese–English mixed speech, or stopped at transcription when what I actually wanted was to <em>command</em> AI by voice.",
+    zh: "我重度依赖语音输入——但试过的工具要么上传录音、要么搞砸中英混说，要么止步于转写。而我真正想要的，是用语音<em>指挥</em> AI。",
+  },
+  {
+    en: "So I built MicType in an AI-collaborative workflow: shipped the first installable Mac build in under an hour, then iterated through 20+ releases driven by real users — friends field-testing on real Windows machines, every bug pinned by diagnostic logs and fixed the same day.",
+    zh: "于是我用 AI 协作的方式把它造了出来：不到一小时发出第一个可安装的 Mac 版本，随后由真实用户驱动迭代了 20+ 个版本——朋友们在真实 Windows 机器上实测，每个 bug 由诊断日志定位、当天修复。",
+  },
+];
+---
+<Base title="My AI software · Gen" description="MicType — voice input for macOS and Windows that doubles as your AI entry point. Built and shipped by Gen.">
+  <Nav />
+  <main>
+    <header class="relative overflow-hidden bg-[var(--color-brand-deep)] text-white">
+      <div class="pointer-events-none absolute -top-32 -right-44 w-[560px] h-[560px] rounded-full opacity-[0.13]"
+           style="background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);"></div>
+      <div class="relative max-w-[920px] mx-auto px-7 pt-20 md:pt-24 pb-12 md:pb-16">
+        <div class="reveal reveal-1 flex items-center gap-3 mb-6">
+          <span class="h-px w-8 bg-[var(--color-accent-soft)]/55"></span>
+          <span class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55"><T en="What I build" zh="我造过什么" /></span>
+        </div>
+        <h1 class="reveal reveal-2 font-serif text-[44px] md:text-[60px] font-medium tracking-[-0.025em] leading-[1.02] mb-6"><T en="My AI software" zh="我的 AI 软件" /></h1>
+        <p class="reveal reveal-3 text-lg md:text-[21px] text-white/70 leading-[1.6]">
+          <T
+            en="Desktop software I designed, built and shipped to real users — not a demo, a product with releases, field testing and an update channel."
+            zh="我设计、开发并交付给真实用户的桌面软件——不是 demo，是有发布线、真机测试和更新通道的产品。"
+          />
+        </p>
+      </div>
+    </header>
+
+    <!-- MicType hero -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-[920px] mx-auto px-7 py-14 md:py-20">
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
+          <h2 class="font-serif text-[34px] md:text-[44px] font-medium tracking-[-0.02em] text-[var(--color-brand)]">MicType <span aria-hidden="true">🎤</span></h2>
+          <div class="text-[13px] text-[var(--color-muted)]"><T en="macOS · Windows · open source (MIT)" zh="macOS · Windows · 开源（MIT）" /></div>
+        </div>
+        <p class="text-[19px] md:text-[22px] text-[var(--color-ink-soft)] leading-[1.55] mb-10 max-w-3xl">
+          <T
+            en="<strong>Voice input that doubles as your AI entry point.</strong> One key, two gestures: tap to dictate, hold to command AI — in any app, right where you're typing."
+            zh="<strong>语音输入，同时是你的 AI 入口。</strong>一个键，两种手势：轻点听写，按住指挥 AI——在任何应用里、就在你打字的地方。"
+          />
+        </p>
+
+        <ol class="space-y-2 mb-4">
+          {gestures.map((g) => (
+            <li class="grid md:grid-cols-[80px_1fr] gap-4 md:gap-8 py-6 border-t border-[var(--color-rule)]">
+              <div class="font-mono text-2xl font-semibold text-[var(--color-accent)] tracking-tight">{g.n}</div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2"><T en={g.titleEn} zh={g.titleZh} /></h3>
+                <p class="text-[var(--color-muted)] leading-relaxed"><T en={g.bodyEn} zh={g.bodyZh} /></p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
+      <div class="max-w-[920px] mx-auto px-7 py-16 md:py-24">
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent-soft)] mb-8">
+          <T en="What makes it different" zh="它有什么不一样" />
+        </div>
+        <ul class="space-y-4 text-white/70 leading-relaxed">
+          {features.map(f => (
+            <li class="[&_strong]:text-white [&_code]:font-mono [&_code]:text-[var(--color-accent-soft)]"><T en={f.en} zh={f.zh} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Why I built it -->
+    <section class="bg-[var(--color-paper)]">
+      <div class="max-w-[920px] mx-auto px-7 py-16 md:py-24">
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-8">
+          <T en="Why I built it" zh="为什么做它" />
+        </div>
+        <div class="space-y-5 max-w-3xl">
+          {story.map(s => (
+            <p class="text-[17px] md:text-[19px] text-[var(--color-ink-soft)] leading-[1.7] [&_em]:font-serif [&_em]:italic"><T en={s.en} zh={s.zh} /></p>
+          ))}
+        </div>
+
+        <div class="mt-12 flex flex-col sm:flex-row gap-4">
+          <a href="https://github.com/genli-ai/MicType/releases/latest" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--color-brand)] text-white text-[15px] font-medium hover:opacity-90 transition">
+            <T en="Download — Mac &amp; Windows" zh="下载——Mac 和 Windows 版" />
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a href="https://github.com/genli-ai/MicType" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[var(--color-rule)] text-[var(--color-ink)] text-[15px] font-medium hover:border-[var(--color-brand)]/50 transition">
+            <T en="Source on GitHub · MIT" zh="GitHub 源码 · MIT" />
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <p class="text-[13px] text-[var(--color-muted)] mt-5">
+          <T
+            en="macOS 15+ on Apple Silicon (notarized) · Windows 10 22H2+ / 11 x64 (public beta) · upgrades in-app via Check for Updates"
+            zh="macOS 15+（Apple Silicon，已公证）· Windows 10 22H2+/11 x64（公开测试）· 之后升级在 App 内「检查更新」一键完成"
+          />
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
