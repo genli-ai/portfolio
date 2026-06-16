@@ -115,6 +115,45 @@ const story = [
       </div>
     </section>
 
+    <!-- iPhone version -->
+    <section class="bg-[var(--color-paper)] border-t border-[var(--color-rule)]">
+      <div class="max-w-[920px] mx-auto px-7 py-14 md:py-20">
+        <div class="text-xs font-mono uppercase tracking-[0.2em] text-[var(--color-accent)] mb-6">
+          <T en="Now on iPhone" zh="现在也有 iPhone 版" />
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
+          <h2 class="font-serif text-[30px] md:text-[38px] font-medium tracking-[-0.02em] text-[var(--color-brand)]">MicType for iPhone <span aria-hidden="true">📱</span></h2>
+          <div class="text-[13px] text-[var(--color-muted)]"><T en="iOS 26+ · App Store · one-time purchase" zh="iOS 26+ · App Store · 一次买断" /></div>
+        </div>
+        <p class="text-[18px] md:text-[20px] text-[var(--color-ink-soft)] leading-[1.6] mb-8 max-w-3xl">
+          <T
+            en="<strong>A focused iPhone build with the same philosophy.</strong> A voice keyboard with on-device dictation and your own AI — tap to dictate, hold to command. Honest about the mic, and your audio never leaves the phone."
+            zh="<strong>理念一致的 iPhone 精简版。</strong>一个语音输入键盘：本地听写 + 你自己的 AI——轻点听写，按住指挥。对麦克风坦诚，录音绝不离开手机。"
+          />
+        </p>
+        <ul class="space-y-3 text-[var(--color-muted)] leading-relaxed mb-9 max-w-3xl [&_strong]:text-[var(--color-ink)]">
+          <li><T en="<strong>On-device dictation, free forever.</strong> Speech-to-text runs entirely on your iPhone; audio is never uploaded." zh="<strong>本地听写，永久免费。</strong>语音转文字全程在 iPhone 上完成，录音绝不上传。" /></li>
+          <li><T en="<strong>Bring your own AI.</strong> Optional polish / translate / rewrite / voice commands via your own OpenAI-compatible key — a 30-day trial, then a one-time purchase. No subscription, no account, no servers." zh="<strong>AI 自带。</strong>可选的润色 / 翻译 / 改写 / 语音指令，用你自己的 OpenAI 兼容 Key——30 天试用，之后一次买断。不订阅、无账号、无服务器。" /></li>
+        </ul>
+        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+          <span class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[var(--color-brand)]/10 text-[var(--color-brand)] text-[15px] font-medium">
+            <T en="Coming to the App Store" zh="即将上架 App Store" />
+          </span>
+          <a href={asset('mictype/privacy.html')}
+             class="inline-flex items-center gap-2 text-[15px] font-medium text-[var(--color-ink)] hover:text-[var(--color-brand)] transition">
+            <T en="Privacy Policy" zh="隐私政策" />
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <p class="text-[13px] text-[var(--color-muted)] mt-5">
+          <T
+            en="Closed-source (App Store), separate from the open-source desktop build above. Available in overseas regions at launch."
+            zh="iPhone 版为闭源（App Store），与上方开源桌面版相互独立。首发面向海外区。"
+          />
+        </p>
+      </div>
+    </section>
+
     <!-- Features -->
     <section class="bg-[var(--color-ink)] text-[var(--color-paper)]">
       <div class="max-w-[920px] mx-auto px-7 py-16 md:py-24">
