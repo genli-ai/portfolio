@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>公众号版 · analyst-research 设计思路</title>
+<style>
+  body { background:#f2f2ee; margin:0; padding:24px 12px; }
+  .tip { max-width:680px; margin:0 auto 16px; font-family:-apple-system,'PingFang SC',sans-serif; font-size:13px; color:#8a8f98; background:#fff8ef; border:1px dashed #d8b48f; border-radius:8px; padding:10px 14px; }
+</style>
+</head>
+<body>
+
+<div class="tip">使用方法：在浏览器里全选这一页（⌘A）→ 复制（⌘C）→ 打开公众号编辑器 → 粘贴（⌘V）。内联样式会保留。下面虚线框这段提示不要复制。</div>
+
+<!-- ↓↓↓ 从这里开始复制 ↓↓↓ -->
+<div style="max-width:680px;margin:0 auto;padding:8px 6px;font-family:-apple-system,'PingFang SC','Hiragino Sans GB',sans-serif;color:#2c2f36;font-size:16px;line-height:1.85;letter-spacing:0.3px;background:#ffffff;">
+
+  <h1 style="font-size:25px;line-height:1.42;font-weight:700;color:#0a0e1a;margin:6px 0 6px;">开源我的投研工作流：analyst-research 是怎么设计的</h1>
+  <p style="font-size:14px;color:#9aa0a8;margin:0 0 24px;">Gen · 开源 · MIT · Claude Code 插件</p>
+
+  <p style="margin:0 0 16px;">我把自己写研报用的工作流开源了——一个叫 <strong style="color:#1f3a5f;">analyst-research</strong> 的 Claude skill。它不是「帮你写两段分析」那种，而是把一份投研报告从假设到成稿的完整流程、连同那套本该有的纪律，全部写进了 skill 里。</p>
+  <p style="margin:0 0 16px;">这篇不讲它能干嘛（主页有），只讲一件事：<strong>它是怎么设计的</strong>。</p>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">先有一个判断：把 AI 当成初级分析师</h2>
+  <p style="margin:0 0 16px;">我对 AI 的定位很明确：一个<strong>初级分析师</strong>——快、知识面广，但直觉没经过训练，会想当然、会编数字、会把估算说成事实。</p>
+  <p style="margin:0 0 16px;">既然如此，我的工作就不是「让它更聪明」，而是<strong>给它铺一条轨道</strong>，让它在轨道里跑，并在错误进入正文之前拦下来。analyst-research 的所有设计，都是从这个判断出发的。</p>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">设计一：三档 mode，一次触发自适应</h2>
+  <p style="margin:0 0 12px;">项目体量差别很大：有时只要一页备忘，有时要一篇 1.5 万字的旗舰报告。所以我没做「一个万能流程」，而是做了三档，触发时选一档：</p>
+  <p style="margin:0 0 8px;"><strong style="color:#0a0e1a;">light</strong> — 5 页决策备忘，6 步，不带图，十几分钟。</p>
+  <p style="margin:0 0 8px;"><strong style="color:#0a0e1a;">medium</strong> — 10-15 页主题分析，8 步，3-8 张图。</p>
+  <p style="margin:0 0 14px;"><strong style="color:#0a0e1a;">heavy</strong> — 1.5 万字旗舰报告，11 步，20+ 图，可选多 LLM。</p>
+  <p style="margin:0 0 16px;">关键是：skill <strong>只加载你选中那一档</strong>的工作流——既不让小项目背上重流程，也不浪费 context。</p>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">设计二：把「严谨」写进 8 步，而不是嘴上提醒</h2>
+  <p style="margin:0 0 14px;">严谨没法靠「提醒 AI 要严谨」实现，得写进结构。以 medium / heavy 的 8 步骨架为例（标〔人工〕〔质量门〕的是写死的停点）：</p>
+  <div style="border-left:2px solid #e5e7ea;padding-left:16px;margin:0 0 16px;color:#4a4f59;font-size:15px;line-height:1.8;">
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">① 锁定假设</strong> <span style="color:#c97b4c;font-size:13px;">〔人工〕</span><br/>一句话研究问题，动手检索前就定死，全程跟着走，绝不从草稿反推。</p>
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">② 广谱检索</strong><br/>五类来源（官方统计 / 多边机构 / 央行 / 卖方 / 公司原始披露），PDF 整篇下，不只看摘要。</p>
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">③ 提纲 + 配图规划</strong> <span style="color:#c97b4c;font-size:13px;">〔人工确认〕</span><br/>结构和配图先给人过目、确认了再动笔。</p>
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">④ 取数 + 出图</strong><br/>每张图一组 CSV + 脚本，标题里的数字必须和图上的数据对得上。</p>
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">⑤ 一气呵成写初稿</strong><br/>单 LLM 从头写到尾，边写边标引用，绝不写完再补。</p>
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">⑥ 自我批评，6 维度</strong> <span style="color:#c97b4c;font-size:13px;">〔质量门〕</span><br/>事实 / 单位 / 引用 / 连贯 / 论证 / 语言，查三轮，不过关打回第 5 步。</p>
+    <p style="margin:0 0 10px;"><strong style="color:#1f3a5f;">⑦ 独立核验</strong> <span style="color:#c97b4c;font-size:13px;">〔质量门〕</span><br/>每个撑结论的数字交叉核对，核不过就标存疑或删掉。</p>
+    <p style="margin:0;"><strong style="color:#1f3a5f;">⑧ 定稿签字 + 派生</strong> <span style="color:#c97b4c;font-size:13px;">〔人工〕</span><br/>人读完整篇、签字，再派生公众号 / HTML / Word。</p>
+  </div>
+  <p style="margin:0 0 16px;">那几个〔人工〕〔质量门〕是<strong>写死的</strong>：AI 跑得再顺，关键处也得停下等人。</p>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">设计三：四条不可妥协的原则</h2>
+  <p style="margin:0 0 14px;"><strong style="color:#0a0e1a;">来源可追溯。</strong>任何数字追到原始来源，追不到就标存疑并剔除——绝不写进结论。宁可写「未公开」，也不给一个看似合理的猜测。</p>
+  <p style="margin:0 0 14px;"><strong style="color:#0a0e1a;">三态标注。</strong>事实 / 估算 / 推断用不同措辞分清楚，绝不混为一谈。</p>
+  <p style="margin:0 0 14px;"><strong style="color:#0a0e1a;">AI 是副驾，不是主驾。</strong>假设、scope、最终签字都由人决定。</p>
+  <p style="margin:0 0 14px;"><strong style="color:#0a0e1a;">持续迭代。</strong>每个项目以复盘收尾，经验证的经验再回流进 skill 本身。</p>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">设计四：让不同 LLM 干各自最擅长的（heavy，可选）</h2>
+  <p style="margin:0 0 10px;"><strong style="color:#0a0e1a;">Claude</strong> — 英文 IB 级写作、搭结构、做整合、端到端编排，每一步的默认模型。</p>
+  <p style="margin:0 0 10px;"><strong style="color:#0a0e1a;">GPT-5</strong> — 数值精度、单位一致、事实核验、语言风格红线，第 6 步唯一的外部批评者。</p>
+  <p style="margin:0 0 16px;"><strong style="color:#0a0e1a;">DeepSeek</strong> — 中文润色的路数，已提炼成风格指南，现由 Claude 直接套用。</p>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">这个 skill 怎么组织的</h2>
+  <p style="margin:0 0 12px;">一个触发入口，三套工作流，共用一套生产工具：</p>
+  <pre style="background:#0a0e1a;color:#cdd3dc;padding:16px 18px;border-radius:8px;font-size:13px;line-height:1.7;font-family:Menlo,Consolas,monospace;margin:0 0 16px;overflow-x:auto;white-space:pre;">analyst-research/
+├── SKILL.md              触发 + mode 分流
+├── references/
+│   ├── workflow_light    6 步
+│   ├── workflow_medium   8 步
+│   ├── workflow_heavy    11 步
+│   └── report_style_spec 视觉生产规范
+└── scripts/
+    ├── chart_template.py 统一图表样式
+    └── publication-style 公众号 / HTML 模板</pre>
+
+  <h2 style="font-size:19px;font-weight:700;color:#1f3a5f;margin:32px 0 12px;padding-left:12px;border-left:4px solid #c97b4c;">为什么开源 · 怎么用</h2>
+  <p style="margin:0 0 12px;">方法论本就该被检验、被复用——藏着没意义。开源 MIT，在 Claude Code 里两行装上：</p>
+  <pre style="background:#0a0e1a;color:#e2e8f0;padding:14px 16px;border-radius:8px;font-size:13px;line-height:1.8;font-family:Menlo,Consolas,monospace;margin:0 0 16px;white-space:pre-wrap;word-break:break-all;">/plugin marketplace add genli-ai/market-research-skills
+/plugin install market-research-skills@market-research-skills</pre>
+  <p style="margin:0 0 16px;">然后输入 <code style="font-family:Menlo,Consolas,monospace;background:#f0f0ec;padding:1px 6px;border-radius:4px;">/analyst-research</code>，选一档 mode，把假设交给它就行。</p>
+
+  <div style="border-top:2px solid #0a0e1a;margin:32px 0 0;padding:18px 0 6px;">
+    <p style="margin:0 0 8px;">完整介绍，外加一份用它端到端跑出来的<strong style="color:#1f3a5f;">沙特愿景 2030 深度研究（1.5 万字）</strong>，都在我的主页：</p>
+    <p style="margin:0 0 6px;font-family:Menlo,Consolas,monospace;font-size:15px;">网页 → <span style="color:#c97b4c;">genli-ai.github.io/portfolio</span></p>
+    <p style="margin:0 0 14px;font-family:Menlo,Consolas,monospace;font-size:15px;">源码 → <span style="color:#c97b4c;">github.com/genli-ai/market-research-skills</span></p>
+    <p style="margin:0;color:#6e7681;font-size:15px;">analyst-research 和 verifying（核实）、topic-brief（主题简报）一起构成 Market Research 套件。欢迎同行交流、提 issue、一起打磨。 — Gen</p>
+  </div>
+
+</div>
+<!-- ↑↑↑ 复制到这里结束 ↑↑↑ -->
+
+</body>
+</html>

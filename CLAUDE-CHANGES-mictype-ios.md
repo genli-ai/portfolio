@@ -22,3 +22,5 @@
 ## 2026-07-06 — 隐私政策更新（MicType iOS 1.0.4 云端识别）
 - `public/mictype/privacy.html`：新增可选「云端识别」披露（默认关、独立音频同意、发往用户自己配置的端点、失败回落本机）——修订 EN/CN 的「语音与转写」「AI 功能」两条 + meta description；生效日期 → 2026-07-06。与 MicType 仓库 `docs/releases/shared/privacy-policy-EN/CN.md` 逐句对应。
 - `BASE=/portfolio npm run build` 通过（10 页）；push 后 GitHub Actions 自动部署。
+
+- 2026-07-06 追加：隐私页改为**仅英文**（海外定位，用户要求）——移除简体中文半区。
