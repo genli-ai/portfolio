@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MicType for iPhone — Privacy Policy</title>
-<meta name="description" content="Privacy Policy for MicType, a local-first voice keyboard for iPhone. We collect no personal data and run no servers; your audio stays on your device unless you explicitly enable optional cloud recognition." />
+<meta name="description" content="MicType for iPhone privacy policy — no servers, no tracking; your audio and text go directly from your phone to the AI provider you choose, with your own key." />
 <style>
   :root { --ink:#1c1c1e; --soft:#48484a; --muted:#8a8a8e; --rule:#e5e5ea; --brand:#1f4a3f; --paper:#fbfbf9; }
   * { box-sizing: border-box; }
@@ -32,17 +32,25 @@
 <div class="wrap">
 
   <h1>MicType for iPhone — Privacy Policy</h1>
-  <p class="eff">Effective date: July 6, 2026</p>
+  <p class="eff">Effective date: September 22, 2026</p>
 
-  <p class="lead">MicType is a local-first voice keyboard. Core principle: <strong>your voice and text belong to you.</strong></p>
+  <p class="lead">MicType is a voice keyboard that runs on your own AI. Core principle: <strong>your voice and text belong to you</strong>, and they never pass through us.</p>
 
   <ol>
-    <li>We <strong>collect no personal data</strong>, run <strong>no servers of our own</strong>, and do <strong>not track</strong> you.</li>
-    <li><strong>Voice &amp; transcription.</strong> By default, recording and speech-to-text run <strong>entirely on your device</strong> — audio <strong>never leaves your device</strong> and is never uploaded. If you explicitly enable the optional <strong>Cloud recognition</strong> and accept its separate audio consent (see the next item), your recordings are sent for transcription to the AI endpoint <strong>you yourself configured</strong>; you can turn it off at any time, after which recognition is fully on-device again.</li>
-    <li><strong>AI features (optional).</strong> When — and only when — you actively use polish / translate / rewrite / voice command, the app sends the specific text you dictated or selected — and, <strong>only if you separately enabled Cloud recognition</strong> with its own audio consent, your recordings for transcription — using <strong>your own API key</strong>, directly from your device to the third-party, OpenAI-compatible AI endpoint <strong>you configured</strong> (for example OpenAI, another provider, or your own self-hosted server). This text is used solely to return the processed result to you. MicType has <strong>no servers of its own</strong> and neither relays nor stores this text. Because <strong>you choose and control</strong> which endpoint is used, that third party's collection and use of the text is governed by its own privacy policy and security terms; we recommend reviewing the privacy and security terms of the provider you configure before enabling AI. Cloud recognition is <strong>off by default</strong>, shows a dedicated consent dialog before any audio is sent, and automatically falls back to on-device recognition on any failure.</li>
-    <li><strong>Microphone.</strong> The microphone is captured <strong>only when you tap the record button</strong>. iOS shows the orange microphone indicator while a session is active; capture stops when the app is closed.</li>
-    <li><strong>Keyboard Full Access.</strong> Used to read the local transcription result from the app (via App Group) and to call the AI endpoint you configured. The keyboard <strong>does not record audio</strong> and <strong>does not upload keystrokes</strong>.</li>
-    <li><strong>Local storage.</strong> Your API key is stored in the device <strong>Keychain</strong>; your input history and vocabulary stay on your device.</li>
+    <li>We <strong>collect no personal data</strong>, run <strong>no servers of our own</strong>, and do <strong>not track</strong> you. MicType has no accounts and no sign-in.</li>
+    <li><strong>Voice &amp; transcription.</strong> What happens to a recording depends on whether you have connected an AI provider:
+      <ul>
+        <li><strong>No provider connected</strong> (or the cloud is unavailable — no network, a provider error, or your AI trial has ended): recognition runs <strong>entirely on your iPhone</strong> and the recording never leaves the device.</li>
+        <li><strong>A provider connected, with your consent</strong> (see item 4): while you speak, the recording is streamed for recognition to the provider you chose — OpenAI, Alibaba Cloud Model Studio, or DeepSeek — <strong>directly from your device, using your own API key</strong>. MicType has no servers and neither relays nor stores the audio. If that connection fails mid-sentence, recognition falls back to your iPhone so your words are not lost.</li>
+        <li>In app versions before 1.1.0, cloud recognition was a separate switch that was off by default; from 1.1.0 it is part of connecting a provider, which you do yourself and can undo at any time.</li>
+      </ul>
+    </li>
+    <li><strong>AI features (text).</strong> When you dictate, or select or copy text and give a voice command, the app sends that text — and the terms you added to your own glossary, so names are spelled correctly — to the same provider, using the same key, directly from your device, solely to return the processed result to you. MicType neither relays nor stores this text.</li>
+    <li><strong>Your consent, and how to withdraw it.</strong> Before anything is sent, the app shows <strong>one consent dialog</strong> that names exactly what will leave the device (your recording while you speak, and the text you dictate, select or copy) and which provider it goes to. Nothing is sent until you accept. You can stop it at any time in Settings → Cloud AI → "Turn off cloud AI (remove key)", after which recognition runs on your iPhone again.</li>
+    <li><strong>The provider is your choice, and its terms apply.</strong> Because you choose the provider and supply your own key, that third party's collection and use of your audio and text is governed by its own privacy policy and terms. We recommend reading them before connecting. MicType is not a party to that relationship and receives nothing from it.</li>
+    <li><strong>Microphone.</strong> The microphone is captured <strong>only when you tap the record button</strong>; iOS shows the orange microphone indicator while a session is active; capture stops when the app is closed.</li>
+    <li><strong>Keyboard Full Access.</strong> Used to read the transcription result from the app (via the App Group) and to call the provider you configured. The keyboard <strong>does not record audio</strong> and <strong>does not upload keystrokes</strong>.</li>
+    <li><strong>Local storage.</strong> Your API key is stored in the device <strong>Keychain</strong>; your input history and glossary stay on your device and are never synced or uploaded.</li>
     <li><strong>Children.</strong> MicType is not directed to children and collects no data from anyone.</li>
   </ol>
 
